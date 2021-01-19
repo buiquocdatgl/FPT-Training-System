@@ -15,5 +15,6 @@ namespace FPT_Trainning.Models
             return new ApplicationDbContext();
         }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
