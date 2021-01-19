@@ -5,11 +5,10 @@ using System.Web;
 
 namespace FPT_Trainning.Models
 {
-    public class Course
+    public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Category Category { get; set; }
     }
 }
