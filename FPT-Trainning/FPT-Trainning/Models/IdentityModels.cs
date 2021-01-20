@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,5 +17,8 @@ namespace FPT_Trainning.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string FullName { get; set; }
+        public virtual Trainer TrainerUser { get; set; }
+        public virtual Trainee TraineeUser { get; set; }
     }
 }
