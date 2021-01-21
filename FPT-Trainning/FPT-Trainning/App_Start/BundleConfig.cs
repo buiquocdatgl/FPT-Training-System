@@ -25,6 +25,18 @@ namespace FPT_Trainning
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/assets/css").Include(
+                      "~/assets/bootstrap/css/bootstrap.min.css",
+                      "~/assets/css/alert.css",
+                      "~/assets/css/dh-navbar-centered-brand.css",
+                      "~/assets/css/dh-row.titile-text-image-right-1.css",
+                      "~/assets/css/Footer-Dark.css",
+                      "~/assets/css/Form.css",
+                      "~/assets/css/Pretty-Registration-Form.css",
+                      "~/assets/css/Projects-Clean.css",
+                      "~/assets/css/Table-with-search--sort-filters.css"
+                      )
+                );
         }
     }
 }

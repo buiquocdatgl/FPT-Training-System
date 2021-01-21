@@ -173,6 +173,11 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +188,14 @@
     <Compile Include="Migrations\202101190453142_AddCategoryInCourse.cs" />
     <Compile Include="Migrations\202101190453142_AddCategoryInCourse.Designer.cs">
       <DependentUpon>202101190453142_AddCategoryInCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201457475_CreateTableTrainerInDb.cs" />
+    <Compile Include="Migrations\202101201457475_CreateTableTrainerInDb.Designer.cs">
+      <DependentUpon>202101201457475_CreateTableTrainerInDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201515564_AddFieldToUser.cs" />
+    <Compile Include="Migrations\202101201515564_AddFieldToUser.Designer.cs">
+      <DependentUpon>202101201515564_AddFieldToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -286,6 +299,18 @@
     <Content Include="assets\fonts\ionicons.eot" />
     <Content Include="assets\fonts\ionicons.ttf" />
     <Content Include="assets\fonts\ionicons.woff" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -410,10 +435,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Courses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Course\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -433,6 +458,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101190453142_AddCategoryInCourse.resx">
       <DependentUpon>202101190453142_AddCategoryInCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201457475_CreateTableTrainerInDb.resx">
+      <DependentUpon>202101201457475_CreateTableTrainerInDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201515564_AddFieldToUser.resx">
+      <DependentUpon>202101201515564_AddFieldToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
