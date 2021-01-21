@@ -173,6 +173,8 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TraineesController.cs" />
+    <Compile Include="Controllers\TrainersController.cs" />
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -439,6 +441,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModel\" />
+    <Folder Include="Views\Trainees\" />
+    <Folder Include="Views\Trainers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
