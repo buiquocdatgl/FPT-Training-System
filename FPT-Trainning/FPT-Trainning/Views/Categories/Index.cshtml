@@ -1,0 +1,48 @@
+﻿@model IEnumerable<FPT_Trainning.Models.Category>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index Category</h2>
+@Html.ActionLink("Create New Category", "Create", "Categories", null, new { @class = "btn btn-primary" })
+<form>
+    <label for="fname">Search by Category Name:</label><br>
+    <input type="text" id="fname" name="fname"><br>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Category #</th>
+            <th>Category Name</th>
+            <th>Category Desciption</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Categories",
+                                             new { id = item.Id },
+                                             new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Update", "Update", "Categories",
+                                              new { id = item.Id },
+                                              new { @class = "btn btn-dark" })
+                    @Html.ActionLink("Delete", "Delete", "Categories",
+                                             new { id = item.Id },
+                                             new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Back to Courses Index", "Index", "Courses",
+    null,
+    new { @class = "btn btn-primary" })

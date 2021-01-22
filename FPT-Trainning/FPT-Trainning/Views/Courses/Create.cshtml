@@ -1,0 +1,29 @@
+﻿@model  FPT_Trainning.ViewModel.CourseCategoriesViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create a Course</h2>
+
+@using (Html.BeginForm("Create", "Courses", "POST"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Course.Name)
+        @Html.TextBoxFor(model => model.Course.Name, new { @class = "form-control", style = "width:350px" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Course.Description)
+        @Html.TextAreaFor(model => model.Course.Description, new { @class = "form-control", style = "width:350px" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Course.Category.Name)
+        @Html.DropDownListFor(model => model.Course.CategoryId,
+         new SelectList(Model.Categories, "Id", "Name"),
+         new { @class = "form-control", style = "width:350px" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create new Task</button>
+    </div>
+}
+<h2>Create</h2>
+
