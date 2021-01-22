@@ -1,97 +1,101 @@
 ﻿using FPT_Trainning.Models;
+using FPT_Trainning.ViewModel;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace FPT_Trainning.Controllers
 {
+
 	public class CoursesController : Controller
 	{
-		private ApplicationDbContext _context;
-		public CoursesController()
-		{
-			_context = new ApplicationDbContext();
-		}
+        private ApplicationDbContext _context;
+        public CoursesController()
+        {
+            _context = new ApplicationDbContext();
+        }
 
-		public ActionResult Index(string searchString)
-		{
-			var courses = _context.Courses.ToList();
+        public ActionResult Index()
+        {
+            var courses = _context.Courses
+                .Include(m => m.Category)
+                .ToList();
+            return View(courses);
+        }
 
-			if (!searchString.IsNullOrWhiteSpace())
-			{
-				courses = _context.Courses
-					.Where(c => c.Name.Contains(searchString))
-					.ToList();
-			}
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var viewModel = new CourseCategoriesViewModel()
+            {
+                Categories = _context.Categories.ToList()
+            };
+            return View(viewModel);
+        }
 
-			return View(courses);
-		}
+        [HttpPost]
+        public ActionResult Create(Course course)
+        {
+            var newCourse = new Course()
+            {
+                Name = course.Name,
+                Description = course.Description,
+                CategoryId = course.CategoryId
 
-		public ActionResult Details(int id)
-		{
-			Course courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
-			return View(courseInDb);
-		}
+            };
+            _context.Courses.Add(newCourse);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-		public ActionResult Delete(int id)
-		{
-			var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
+        public ActionResult Details(int id)
+        {
+            var coursesInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
+            return View(coursesInDb);
+        }
 
-			if (courseInDb == null) return HttpNotFound();
+        [HttpGet]
+        public ActionResult Update(int id)
+        {
+            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
+            if (courseInDb == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new CourseCategoriesViewModel()
+            {
+                Course = courseInDb,
+                Categories = _context.Categories.ToList()
+            };
+            return View(viewModel);
+        }
 
-			_context.Courses.Remove(courseInDb);
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
+        [HttpPost]
+        public ActionResult Update(Course course)
+        {
+            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == course.Id);
 
-		[HttpGet]
-		public ActionResult Create()
-		{
-			return View();
-		}
+            courseInDb.Name = course.Name;
+            courseInDb.Description = course.Description;
+            courseInDb.CategoryId = course.CategoryId;
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-		[HttpPost]
-		public ActionResult Create(Course course)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
-			var newCourse = new Course()
-			{
-				Name = course.Name
-			};
+        public ActionResult Delete(int id)
+        {
+            var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
 
-			_context.Courses.Add(newCourse);
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
+            if (courseInDb == null) return HttpNotFound();
 
-		[HttpGet]
-		public ActionResult Edit(int id)
-		{
-			var coursesInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
-			if (coursesInDb == null) return HttpNotFound();
+            _context.Courses.Remove(courseInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-			return View();
-		}
-
-		[HttpPost]
-		public ActionResult Edit(Course course)
-
-		{
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
-			var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == course.Id);
-
-			courseInDb.Name = course.Name;
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
-	}
+    }
 }

@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -199,6 +200,10 @@
     <Compile Include="Migrations\202101201515564_AddFieldToUser.Designer.cs">
       <DependentUpon>202101201515564_AddFieldToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101211511580_AddCategoryIdInCourse.cs" />
+    <Compile Include="Migrations\202101211511580_AddCategoryIdInCourse.Designer.cs">
+      <DependentUpon>202101211511580_AddCategoryIdInCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -210,6 +215,7 @@
     <Compile Include="Models\Trainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\CourseCategoriesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\bootstrap\css\bootstrap.min.css" />
@@ -438,6 +444,13 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Update.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Update.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -469,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101201515564_AddFieldToUser.resx">
       <DependentUpon>202101201515564_AddFieldToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101211511580_AddCategoryIdInCourse.resx">
+      <DependentUpon>202101211511580_AddCategoryIdInCourse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

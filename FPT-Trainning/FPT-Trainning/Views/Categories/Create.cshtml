@@ -1,0 +1,22 @@
+﻿@model FPT_Trainning.Models.Category
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Category</h2>
+@using (Html.BeginForm("Create", "Categories", "POST"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description)
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control", style = "width:350px" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create new Category</button>
+    </div>
+}

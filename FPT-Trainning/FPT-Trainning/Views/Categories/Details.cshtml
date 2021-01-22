@@ -1,0 +1,15 @@
+﻿@model FPT_Trainning.Models.Category
+@{ ViewBag.Title = "Details"; }
+
+<h2>Task Details</h2>
+
+@Html.ActionLink("Back to My Categories", "Index", "Categories",
+    null,
+    new { @class = "btn btn-primary" })
+
+<ul>
+    <li>@Model.Id</li>
+    <li>@Model.Name</li>
+    <li>@Model.Description</li>
+</ul>
+
