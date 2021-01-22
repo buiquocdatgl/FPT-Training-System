@@ -9,17 +9,20 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FPT_Trainning.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace FPT_Trainning.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext _context;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
+            _context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -136,26 +139,35 @@ namespace FPT_Trainning.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles="ADMIN,STAFF")]
         public ActionResult Register()
         {
+            if (User.IsInRole("ADMIN"))
+                ViewBag.Name = _context.Roles.Where(r => r.Name.Equals("STAFF") || r.Name.Equals("TRAINER")).ToList();
+            if (User.IsInRole("STAFF"))
+                ViewBag.Name = _context.Roles.Where(r => r.Name.Equals("TRAINEE")).ToList();
             return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles ="ADMIN,STAFF")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {
+            {   
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                var userStore = new UserStore<ApplicationUser>(_context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    userManager.AddToRole(user.Id, model.RoleName);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
