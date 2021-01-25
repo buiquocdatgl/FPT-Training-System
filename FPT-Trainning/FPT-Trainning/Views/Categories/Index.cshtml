@@ -14,7 +14,7 @@
 
 <table class="table table-bordered">
     <thead>
-        <tr>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
             <th>Category #</th>
             <th>Category Name</th>
             <th>Category Desciption</th>
@@ -24,7 +24,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr style="color:black; text-align:center">
                 <td>@item.Id</td>
                 <td>@item.Name</td>
                 <td>@item.Description</td>

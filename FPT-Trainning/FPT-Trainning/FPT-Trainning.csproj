@@ -170,7 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\AssignController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -205,6 +205,22 @@
     <Compile Include="Migrations\202101211511580_AddCategoryIdInCourse.Designer.cs">
       <DependentUpon>202101211511580_AddCategoryIdInCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101221423535_AddCoursesToTrainer.cs" />
+    <Compile Include="Migrations\202101221423535_AddCoursesToTrainer.Designer.cs">
+      <DependentUpon>202101221423535_AddCoursesToTrainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101221439406_AddCourseIdInTrainer.cs" />
+    <Compile Include="Migrations\202101221439406_AddCourseIdInTrainer.Designer.cs">
+      <DependentUpon>202101221439406_AddCourseIdInTrainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101221514107_AddCourseAndCourseId.cs" />
+    <Compile Include="Migrations\202101221514107_AddCourseAndCourseId.Designer.cs">
+      <DependentUpon>202101221514107_AddCourseAndCourseId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101240535320_AllowNullFK.cs" />
+    <Compile Include="Migrations\202101240535320_AllowNullFK.Designer.cs">
+      <DependentUpon>202101240535320_AllowNullFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -216,7 +232,10 @@
     <Compile Include="Models\Trainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\AssignTraineeToCourses.cs" />
     <Compile Include="ViewModel\CourseCategoriesViewModel.cs" />
+    <Compile Include="ViewModel\AssignTrainerToCourses.cs" />
+    <Compile Include="ViewModel\ListTrainerAndTraineeInCourse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\bootstrap\css\bootstrap.min.css" />
@@ -452,12 +471,15 @@
     <Content Include="Views\Courses\Create.cshtml" />
     <Content Include="Views\Courses\Update.cshtml" />
     <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Trainers\Index.cshtml" />
+    <Content Include="Views\Assign\Index.cshtml" />
+    <Content Include="Views\Assign\AddTrainerAssign.cshtml" />
+    <Content Include="Views\Assign\AddTraineeAssign.cshtml" />
+    <Content Include="Views\Assign\ChangeTraineeAssign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admins\" />
     <Folder Include="Views\Trainees\" />
-    <Folder Include="Views\Trainers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -486,6 +508,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101211511580_AddCategoryIdInCourse.resx">
       <DependentUpon>202101211511580_AddCategoryIdInCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221423535_AddCoursesToTrainer.resx">
+      <DependentUpon>202101221423535_AddCoursesToTrainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221439406_AddCourseIdInTrainer.resx">
+      <DependentUpon>202101221439406_AddCourseIdInTrainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221514107_AddCourseAndCourseId.resx">
+      <DependentUpon>202101221514107_AddCourseAndCourseId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101240535320_AllowNullFK.resx">
+      <DependentUpon>202101240535320_AllowNullFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

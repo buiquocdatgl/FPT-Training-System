@@ -8,10 +8,22 @@
     null,
     new { @class = "btn btn-primary" })
 
-<ul>
-    <li>@Model.Id</li>
-    <li>@Model.Name</li>
-    <li>@Model.Description</li>
-</ul>
-
+<table class="table table-bordered">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>Course #</th>
+            <th>Course Name</th>
+            <th>Course Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:black; text-align:center">
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.Description</td>
+        </tr>
+    </tbody>
+</table>
+@Html.ActionLink("Go to AssignCourse", "Index", "Assign",
+    new { id = Model.Id }, new { @class = "btn btn-dark" })
 
