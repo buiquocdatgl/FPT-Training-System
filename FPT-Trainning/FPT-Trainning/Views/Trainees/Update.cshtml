@@ -1,0 +1,55 @@
+﻿@model FPT_Trainning.Models.Trainee
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit this trainee's profile</h2>
+
+@using (Html.BeginForm("Update", "Trainees", "POST"))
+{
+
+    @Html.HiddenFor(model => model.TraineeId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ApplicationUser.FullName)
+        @Html.TextAreaFor(model => model.ApplicationUser.FullName, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProgramLanguage)
+        @Html.TextAreaFor(model => model.ProgramLanguage, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Age)
+        @Html.TextAreaFor(model => model.Age, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DOB)
+        @Html.TextAreaFor(model => model.DOB, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Experience)
+        @Html.TextAreaFor(model => model.Experience, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Education)
+        @Html.TextAreaFor(model => model.Education, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Location)
+        @Html.TextAreaFor(model => model.Location, new { @class = "form-control", style = "width:350px" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToeicScore)
+        @Html.TextAreaFor(model => model.ToeicScore, new { @class = "form-control", style = "width:350px" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Confirm changes</button>
+    </div>
+}
+

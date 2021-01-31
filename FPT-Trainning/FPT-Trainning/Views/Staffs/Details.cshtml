@@ -1,0 +1,16 @@
+﻿@model FPT_Trainning.Models.ApplicationUser
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";}
+
+<h2>Account details of this staff</h2>
+
+@Html.ActionLink("Back to Staffs' Index", "Index", "Staffs",
+    null,
+    new { @class = "btn btn-primary" })
+
+<ul>
+    <li>E-mail: @Model.UserName</li>
+    <li>Full name: @Model.FullName</li>
+</ul>
+

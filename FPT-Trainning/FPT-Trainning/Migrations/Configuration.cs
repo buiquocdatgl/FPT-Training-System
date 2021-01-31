@@ -12,7 +12,7 @@ namespace FPT_Trainning.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(FPT_Trainning.Models.ApplicationDbContext context)

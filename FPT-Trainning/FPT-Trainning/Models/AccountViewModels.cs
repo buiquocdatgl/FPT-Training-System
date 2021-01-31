@@ -86,15 +86,15 @@ namespace FPT_Trainning.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
+        /*[Required]*/
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "New Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
@@ -103,6 +103,7 @@ namespace FPT_Trainning.Models
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
+        public ApplicationUser User { get; set; }
     }
 
     public class ForgotPasswordViewModel

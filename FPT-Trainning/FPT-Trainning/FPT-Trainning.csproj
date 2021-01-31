@@ -169,6 +169,7 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\TraineesController.cs" />
     <Compile Include="Controllers\TrainersController.cs" />
     <Compile Include="DataSet1.Designer.cs">
@@ -179,25 +180,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101181412447_CreateCourses.cs" />
-    <Compile Include="Migrations\202101181412447_CreateCourses.Designer.cs">
-      <DependentUpon>202101181412447_CreateCourses.cs</DependentUpon>
+    <Compile Include="Migrations\202101310215510_Reset.cs" />
+    <Compile Include="Migrations\202101310215510_Reset.Designer.cs">
+      <DependentUpon>202101310215510_Reset.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101190453142_AddCategoryInCourse.cs" />
-    <Compile Include="Migrations\202101190453142_AddCategoryInCourse.Designer.cs">
-      <DependentUpon>202101190453142_AddCategoryInCourse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101201457475_CreateTableTrainerInDb.cs" />
-    <Compile Include="Migrations\202101201457475_CreateTableTrainerInDb.Designer.cs">
-      <DependentUpon>202101201457475_CreateTableTrainerInDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101201515564_AddFieldToUser.cs" />
-    <Compile Include="Migrations\202101201515564_AddFieldToUser.Designer.cs">
-      <DependentUpon>202101201515564_AddFieldToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101211511580_AddCategoryIdInCourse.cs" />
-    <Compile Include="Migrations\202101211511580_AddCategoryIdInCourse.Designer.cs">
-      <DependentUpon>202101211511580_AddCategoryIdInCourse.cs</DependentUpon>
+    <Compile Include="Migrations\202101310528064_RevampedPWReset.cs" />
+    <Compile Include="Migrations\202101310528064_RevampedPWReset.Designer.cs">
+      <DependentUpon>202101310528064_RevampedPWReset.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202101221423535_AddCoursesToTrainer.cs" />
     <Compile Include="Migrations\202101221423535_AddCoursesToTrainer.Designer.cs">
@@ -478,6 +467,34 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Update.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Update.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Trainers\Details.cshtml" />
+    <Content Include="Views\Trainers\Index.cshtml" />
+    <Content Include="Views\Trainers\Update.cshtml" />
+    <Content Include="Views\Trainees\Index.cshtml" />
+    <Content Include="Views\Trainees\Details.cshtml" />
+    <Content Include="Views\Trainees\Update.cshtml" />
+    <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\Staffs\Details.cshtml" />
+    <Content Include="Views\Staffs\Update.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
     <Content Include="Views\Assign\ChangeTrainerAssign.cshtml" />
     <Content Include="Views\Assign\ChangeTraineeAssign.cshtml" />
   </ItemGroup>
@@ -490,20 +507,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101181412447_CreateCourses.resx">
-      <DependentUpon>202101181412447_CreateCourses.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101310215510_Reset.resx">
+      <DependentUpon>202101310215510_Reset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101190453142_AddCategoryInCourse.resx">
-      <DependentUpon>202101190453142_AddCategoryInCourse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101201457475_CreateTableTrainerInDb.resx">
-      <DependentUpon>202101201457475_CreateTableTrainerInDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101201515564_AddFieldToUser.resx">
-      <DependentUpon>202101201515564_AddFieldToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101211511580_AddCategoryIdInCourse.resx">
-      <DependentUpon>202101211511580_AddCategoryIdInCourse.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101310528064_RevampedPWReset.resx">
+      <DependentUpon>202101310528064_RevampedPWReset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101221423535_AddCoursesToTrainer.resx">
       <DependentUpon>202101221423535_AddCoursesToTrainer.cs</DependentUpon>
