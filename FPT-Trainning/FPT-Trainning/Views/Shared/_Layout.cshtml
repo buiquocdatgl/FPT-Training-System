@@ -11,21 +11,22 @@
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
     @Styles.Render("~/assets/css")
-    <body id="page-top">
+    @Styles.Render("~/Content/css")
+    <body style="padding:0">
         <div id="wrapper">
             <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
                 <div class="container-fluid d-flex flex-column p-0">
                     <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                        <div class="sidebar-brand-icon rotate-n-15"><img src="~/assets/img/logo.png" alt="" /></div>
+                        <div class="sidebar-brand-icon rotate-n-15"><img src="~/assets/img/logo.png" alt="" / style="width:3rem"></div>
                         <div class="sidebar-brand-text mx-3"><span>FPT-Training <br /> System</span></div>
                     </a>
                     <hr class="sidebar-divider my-0">
                     <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                        <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Account</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Course</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.html"><i class="fas fa-tags"></i><span>Category</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
+                        <li class="nav-item" style="padding:25px 100px 15px 0px"><i class="fas fa-tachometer-alt" style="margin-right:8px"></i><span>Dashboard</span></li>
+                        <li class="nav-item" style="padding:25px 100px 15px 0px"><i class="fas fa-user" style="margin-right:8px"></i><span>Account</span></li>
+                        <li class="nav-item" style="padding:25px 100px 15px 0px"><i class="fas fa-table" style="margin-right:8px"></i>@Html.ActionLink("Course", "Index", "Courses", null, new { Style = "color:white" })</li>
+                        <li class="nav-item" style="padding:25px 100px 15px 0px"><i class="fas fa-tags" style="margin-right:8px"></i>@Html.ActionLink("Category", "Index", "Categories", null, new { Style = "color:white" })</li>
+                        <li class="nav-item" style="padding:15px 100px 15px 0px"><i class="fas fa-user-circle" style="margin-right:8px"></i><span>Register</span></li>
                         <li>@Html.ActionLink("Role", "Index", "Role")</li>
                     </ul>
                     <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -144,12 +145,28 @@
                             </ul>
                         </div>
                     </nav>
-                    @RenderBody()
-                    <footer class="bg-white sticky-footer">
-                        <div class="container my-auto">
-                            <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
+                    @if (TempData["MessageSuccess"] != null)
+                    {
+                        <div class="alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            @TempData["MessageSuccess"]
                         </div>
-                    </footer>
+
+                    }
+                    @if (TempData["MessageError"] != null)
+                    {
+                        <div class="alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            @TempData["MessageError"]
+                        </div>
+
+                    }
+                    @RenderBody()
+
                 </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
             </div>

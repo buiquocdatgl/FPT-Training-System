@@ -1,0 +1,63 @@
+﻿@model FPT_Trainning.ViewModel.ListTrainerAndTraineeInCourse
+@{
+    ViewBag.Title = "AddTrainerAssign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Trainer Not In Course</h2>
+<div class="container-fluid">
+    <div class="card" id="TableSorterCard">
+        <div class="card-header py-3">
+            <div class="row table-topper align-items-center">
+                <div class="col-12 col-sm-5 col-md-6 text-left" style="margin: 0px;padding: 5px 15px;">
+                    <p class="text-primary m-0 font-weight-bold">List Trainer Not In Course</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table tablesorter" id="ipi-table">
+                        <thead class="thead-dark">
+                            <tr>
+                               @* <th class="text-center">UserName</th>*@
+                                <th class="text-center">FullName</th>
+                                <th class="text-center">Phone</th>
+                                <th class="text-center">Working Place</th>
+                                <th class="text-center">Education</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center filter-false sorter-false">Acction</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @foreach (var item in Model.Trainers)
+                            {
+                            <tr>
+                               @* <td>@item.ApplicationUser.UserName</td>*@
+                                <td>@item.ApplicationUser.FullName</td>
+                                <td>@item.Phone</td>
+                                <td>@item.WorkingPlace</td>
+                                <td>@item.Education</td>
+                                <td>@item.Type</td>
+                                <td>
+                                    @using (Html.BeginForm("AddTrainerAssign", "Assign", "POST"))
+                                    {
+                                    <div class="form-group">
+                                        <input type="hidden" name="CourseId" value="@Model.Course.Id">
+                                        <input type="hidden" name="TrainerId" value="@item.TrainerId">
+                                                                     
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                    </div>
+                                    }
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

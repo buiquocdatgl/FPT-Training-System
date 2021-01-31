@@ -14,6 +14,8 @@ namespace FPT_Trainning.Models
         public string Phone { get; set; }
         public string WorkingPlace { get; set; }
         public string Type { get; set; }
+        public int? CourseId { get; set; }
+        public Course course { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
