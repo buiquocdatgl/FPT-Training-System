@@ -2,7 +2,7 @@
 @{ ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";}
 
-<h2>Task Details</h2>
+<h2>@Model.Name</h2>
 
 @Html.ActionLink("Back to My Courses", "Index", "Courses",
     null,
@@ -14,6 +14,7 @@
             <th>Course #</th>
             <th>Course Name</th>
             <th>Course Description</th>
+            <th>Category Name</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
             <td>@Model.Id</td>
             <td>@Model.Name</td>
             <td>@Model.Description</td>
+            <td>@Model.Category.Name</td>
         </tr>
     </tbody>
 </table>

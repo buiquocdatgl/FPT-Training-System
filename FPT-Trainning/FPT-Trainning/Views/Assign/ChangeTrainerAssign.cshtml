@@ -1,11 +1,10 @@
-﻿@model FPT_Trainning.ViewModel.ChangeTraineeAssign
+﻿@model FPT_Trainning.ViewModel.ChangeTrainerAssign
 @{
     ViewBag.Title = "ChangeTraineeAssign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>
-    Change Trainee Assign
-</h2>
+<h2>Change Trainer Assign</h2>
 <div class="container-fluid">
     <div class="card" id="TableSorterCard">
         <div class="card-header py-3">
@@ -33,11 +32,11 @@
                                     <td>@item.Name</td>
                                     <td>@item.Description</td>
                                     <td>
-                                        @using (Html.BeginForm("ChangeTraineeAssign", "Assign", "Get"))
+                                        @using (Html.BeginForm("ChangeTrainerAssign", "Assign", "Get"))
                                         {
                                             <div class="form-group">
                                                 <input type="hidden" name="CourseId" value="@item.Id">
-                                                <input type="hidden" name="TraineeId" value="@Model.Trainee.TraineeId">
+                                                <input type="hidden" name="TrainerId" value="@Model.Trainer.TrainerId">
 
                                             </div>
                                             <div class="form-group">
