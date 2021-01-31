@@ -1,0 +1,22 @@
+﻿@model FPT_Trainning.Models.Trainee
+@{ ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";}
+
+<h2>Profile details of this trainee</h2>
+
+@Html.ActionLink("Back to Trainees List", "Index", "Trainees",
+    null,
+    new { @class = "btn btn-primary" })
+
+<ul>
+    <li>E-mail: @Model.UserName</li>
+    <li>Full name: @Model.ApplicationUser.FullName</li>
+    <li>Programming language: @Model.ProgramLanguage</li>
+    <li>Age: @Model.Age</li>
+    <li>Date of birth: @Model.DOB</li>
+    <li>Experience level: @Model.Experience</li>
+    <li>Education level: @Model.Education</li>
+    <li>Address: @Model.Location</li>
+    <li>TOEIC rating: @Model.ToeicScore</li>
+</ul>
+

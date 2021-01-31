@@ -7,13 +7,13 @@ namespace FPT_Trainning.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CreateCourses : IMigrationMetadata
+    public sealed partial class RevampedPWReset : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateCourses));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RevampedPWReset));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101181412447_CreateCourses"; }
+            get { return "202101310528064_RevampedPWReset"; }
         }
         
         string IMigrationMetadata.Source

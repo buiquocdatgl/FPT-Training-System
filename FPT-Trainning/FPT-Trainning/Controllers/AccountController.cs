@@ -143,7 +143,7 @@ namespace FPT_Trainning.Controllers
         public ActionResult Register()
         {
             if (User.IsInRole("ADMIN"))
-                ViewBag.Name = _context.Roles.Where(r => r.Name.Equals("STAFF") || r.Name.Equals("TRAINER")).ToList();
+                ViewBag.Name = _context.Roles.Where(r => r.Name.Equals("STAFF") || r.Name.Equals("TRAINER"));
             if (User.IsInRole("STAFF"))
                 ViewBag.Name = _context.Roles.Where(r => r.Name.Equals("TRAINEE")).ToList();
             return View();
@@ -168,7 +168,25 @@ namespace FPT_Trainning.Controllers
                 if (result.Succeeded)
                 {
                     userManager.AddToRole(user.Id, model.RoleName);
-                    
+                    if (model.RoleName.Equals("TRAINER"))
+                    {
+                        var newTrainer = new Trainer()
+                        {
+                            TrainerId = user.Id,
+                            UserName = user.UserName
+                        };
+                        _context.Trainers.Add(newTrainer);
+                    }
+                    if (model.RoleName.Equals("TRAINEE"))
+                    {
+                        var newTrainee = new Trainee()
+                        {
+                            TraineeId = user.Id,
+                            UserName = user.UserName
+                        };
+                        _context.Trainees.Add(newTrainee);
+                    }
+                    _context.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -224,7 +242,7 @@ namespace FPT_Trainning.Controllers
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                // var callbackUrl = Url.Action("", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
@@ -243,16 +261,20 @@ namespace FPT_Trainning.Controllers
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string id)
         {
-            return code == null ? View("Error") : View();
+            var user = _context.Users.SingleOrDefault(u => u.Id == id);
+            if (user == null) return HttpNotFound();
+            var resetUser = new ResetPasswordViewModel()
+            {
+                User = user
+            };
+            return View(resetUser);
         }
 
         //
         // POST: /Account/ResetPassword
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -260,16 +282,17 @@ namespace FPT_Trainning.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByNameAsync(model.User.UserName);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Index", "Home");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            await UserManager.RemovePasswordAsync(user.Id);
+            var result = await UserManager.AddPasswordAsync(user.Id, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Index", "Home");
             }
             AddErrors(result);
             return View();

@@ -40,6 +40,10 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Create(Course course)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var newCourse = new Course()
             {
                 Name = course.Name,
@@ -77,6 +81,10 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Update(Course course)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == course.Id);
 
             courseInDb.Name = course.Name;

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FPT_Trainning.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";}
+
+<h2>Staffs' Index</h2>
+
+@using (Html.BeginForm("Index", "Staffs", "POST"))
+{
+    <div class="form-group">
+        <label for="fname">Search by Staff's full name:</label><br>
+        @Html.TextBox("searchInput", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>E-mail</th>
+            <th>Full name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.UserName</th>
+                <th>@item.FullName</th>
+                <td>
+                    @Html.ActionLink("Details of this staff's account", "Details", "Staffs",
+                                                          new { id = item.Id },
+                                                          new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit this staff's full name", "Update", "Staffs",
+                                                          new { id = item.Id },
+                                                          new { @class = "btn btn-dark" })
+                    @Html.ActionLink("Delete this staff", "Delete", "Staffs",
+                                                          new { id = item.Id },
+                                                          new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Reset & enter new password of this staff", "ResetPassword", "Account",
+                                                          new { id = item.Id },
+                                                          new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

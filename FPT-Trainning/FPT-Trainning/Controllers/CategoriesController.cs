@@ -29,6 +29,10 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var newCategory = new Category()
             {
                 Name = category.Name,
@@ -59,6 +63,10 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Update(Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var categoryInDb = _context.Categories.SingleOrDefault(c => c.Id == category.Id);
 
             categoryInDb.Name = category.Name;
