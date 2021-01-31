@@ -20,6 +20,8 @@ namespace FPT_Trainning.Models
         [DisplayName("Working location")]
         public string WorkingPlace { get; set; }
         public TrainerType Type { get; set; }
+        public int? CourseId { get; set; }
+        public Course course { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
     public enum TrainerType

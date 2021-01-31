@@ -7,9 +7,20 @@
     null,
     new { @class = "btn btn-primary" })
 
-<ul>
-    <li>@Model.Id</li>
-    <li>@Model.Name</li>
-    <li>@Model.Description</li>
-</ul>
+<table class="table table-bordered">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>Category #</th>
+            <th>Category Name</th>
+            <th>Category Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:black; text-align:center">
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.Description</td>
+        </tr>
+    </tbody>
+</table>
 

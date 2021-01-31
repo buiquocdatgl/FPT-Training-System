@@ -22,7 +22,7 @@ namespace FPT_Trainning.Controllers
         public ActionResult Index()
         {
             var courses = _context.Courses
-                .Include(m => m.Category)
+                .Include(c => c.Category)
                 .ToList();
             return View(courses);
         }
@@ -40,25 +40,47 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Create(Course course)
         {
+            if (course.Name == "")
+            {
+                TempData["MessageError"] = "Please input the Course Name";
+                return RedirectToAction("Create");
+            }
+            var checkCourse = _context.Courses.Where(t => t.Name == course.Name);
+            if (checkCourse.Count() > 0)
+            {
+                TempData["MessageError"] = "The Course Name already Existed";
+                return RedirectToAction("Create");
+            }
             if (!ModelState.IsValid)
             {
-                return View();
+                TempData["MessageError"] = "Can Not Create Course";
+                return RedirectToAction("Create");
             }
-            var newCourse = new Course()
+            else
             {
-                Name = course.Name,
-                Description = course.Description,
-                CategoryId = course.CategoryId
+                var newCourse = new Course()
+                {
+                    Name = course.Name,
+                    Description = course.Description,
+                    CategoryId = course.CategoryId
 
-            };
-            _context.Courses.Add(newCourse);
-            _context.SaveChanges();
+                };
+                _context.Courses.Add(newCourse);
+                _context.SaveChanges();
+            }
+            TempData["MessageSuccess"] = "Create Course Successfully";
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(int id)
         {
             var coursesInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
+            if (coursesInDb == null)
+            {
+                TempData["MessageError"] = "The Course Name doesn't Exist";
+                return RedirectToAction("Index");
+            }
+            var courses = _context.Courses.Include(c => c.Category).ToList();
             return View(coursesInDb);
         }
 
@@ -68,7 +90,8 @@ namespace FPT_Trainning.Controllers
             var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
             if (courseInDb == null)
             {
-                return HttpNotFound();
+                TempData["MessageError"] = "The Course Name doesn't Exist";
+                return RedirectToAction("Index");
             }
             var viewModel = new CourseCategoriesViewModel()
             {
@@ -81,16 +104,36 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Update(Course course)
         {
-            if (!ModelState.IsValid)
+            if (course.Name == "")
             {
-                return View();
+                TempData["MessageError"] = "Please input the Course Name";
+                return RedirectToAction("Update");
             }
             var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == course.Id);
-
-            courseInDb.Name = course.Name;
-            courseInDb.Description = course.Description;
-            courseInDb.CategoryId = course.CategoryId;
-            _context.SaveChanges();
+            if (courseInDb == null)
+            {
+                TempData["MessageError"] = "The Course doesn't Exist";
+                return RedirectToAction("Index");
+            }
+            var checkCourse = _context.Courses.Where(t => t.Name == course.Name);
+            if (checkCourse.Count() > 0)
+            {
+                TempData["MessageError"] = "The Course Name already Existed";
+                return RedirectToAction("Update");
+            }
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    TempData["MessageError"] = "Can Not Update Course";
+                    return RedirectToAction("Update");
+                }
+                courseInDb.Name = course.Name;
+                courseInDb.Description = course.Description;
+                courseInDb.CategoryId = course.CategoryId;
+                _context.SaveChanges();
+            }
+            TempData["MessageSuccess"] = "Update Course Successfully";
             return RedirectToAction("Index");
         }
 
@@ -98,10 +141,27 @@ namespace FPT_Trainning.Controllers
         {
             var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
 
-            if (courseInDb == null) return HttpNotFound();
+            if (courseInDb == null)
+            {
+                TempData["MessageError"] = "The Course doesn't Exist";
+                return RedirectToAction("Index");
+            }
+            var trainer = _context.Trainers.Where(t => t.CourseId == id);
+            foreach (var item in trainer)
+            {
+                item.course = null;
+                item.CourseId = null;
+            }
+            var trainee = _context.Trainees.Where(t => t.CourseId == id);
+            foreach (var item in trainee)
+            {
+                item.course = null;
+                item.CourseId = null;
 
+            }
             _context.Courses.Remove(courseInDb);
             _context.SaveChanges();
+            TempData["MessageSuccess"] = "Delete Course Successfully";
             return RedirectToAction("Index");
         }
 

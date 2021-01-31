@@ -22,6 +22,10 @@ namespace FPT_Trainning.Models
         public string FullName { get; set; }
         public virtual Trainer TrainerUser { get; set; }
         public virtual Trainee TraineeUser { get; set; }
-        
+
+        public ApplicationUser()
+        {
+           
+        }
     }
 }

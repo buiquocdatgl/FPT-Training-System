@@ -26,6 +26,8 @@ namespace FPT_Trainning.Models
         public string Location { get; set; }
         [DisplayName("TOEIC rating")]
         public int ToeicScore { get; set; }
+        public int? CourseId { get; set; }
+        public Course course { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
     }

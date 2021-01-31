@@ -1,0 +1,56 @@
+﻿@model FPT_Trainning.ViewModel.ChangeTrainerAssign
+@{
+    ViewBag.Title = "ChangeTraineeAssign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Change Trainer Assign</h2>
+<div class="container-fluid">
+    <div class="card" id="TableSorterCard">
+        <div class="card-header py-3">
+            <div class="row table-topper align-items-center">
+                <div class="col-12 col-sm-5 col-md-6 text-left" style="margin: 0px;padding: 5px 15px;">
+                    <p class="text-primary m-0 font-weight-bold">List Course</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table tablesorter" id="ipi-table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Desciption</th>
+                                <th class="text-center">Change Trainer Assign</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @foreach (var item in Model.Courses)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Description</td>
+                                    <td>
+                                        @using (Html.BeginForm("ChangeTrainerAssign", "Assign", "Get"))
+                                        {
+                                            <div class="form-group">
+                                                <input type="hidden" name="CourseId" value="@item.Id">
+                                                <input type="hidden" name="TrainerId" value="@Model.Trainer.TrainerId">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-warning">Change</button>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

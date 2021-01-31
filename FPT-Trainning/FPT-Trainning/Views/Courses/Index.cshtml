@@ -17,34 +17,42 @@
 }
 <table class="table table-bordered">
     <thead>
-        <tr>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
             <th>Course #</th>
             <th>Course Name</th>
             <th>Course Description</th>
-            <th>Category</th>
+            <th>Category Name</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model != null)
         {
-<tr>
-    <td>@item.Id</td>
-    <td>@item.Name</td>
-    <td>@item.Description)</td>
-    <td>@item.Category.Name</td>
-    <td>
-        @Html.ActionLink("Details", "Details", "Courses",
-                                              new { id = item.Id },
-                                              new { @class = "btn btn-primary" })
-        @Html.ActionLink("Update this Course", "Update", "Courses",
-                                              new { id = item.Id },
-                                              new { @class = "btn btn-dark" })
-        @Html.ActionLink("Delete this Course", "Delete", "Courses",
-                                              new { id = item.Id },
-                                              new { @class = "btn btn-danger" })
-    </td>
-</tr>}
+            foreach (var item in Model)
+            {
+                <tr style="color:black; text-align:center">
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                
+                        <td>@item.Category.Name</td>
+                    
+
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Courses",
+                                                                new { id = item.Id },
+                                                                new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Update this Course", "Update", "Courses",
+                                                                new { id = item.Id },
+                                                                new { @class = "btn btn-dark" })
+                        @Html.ActionLink("Delete this Course", "Delete", "Courses",
+                                                                new { id = item.Id },
+                                                                new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        }
+
     </tbody>
 </table>
 
