@@ -7,13 +7,13 @@ namespace FPT_Trainning.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Reset : IMigrationMetadata
+    public sealed partial class UpdateTrainerModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Reset));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateTrainerModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101310215510_Reset"; }
+            get { return "202102030539077_UpdateTrainerModel"; }
         }
         
         string IMigrationMetadata.Source

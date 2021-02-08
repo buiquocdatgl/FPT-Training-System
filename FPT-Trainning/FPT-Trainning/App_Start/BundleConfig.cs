@@ -37,6 +37,17 @@ namespace FPT_Trainning
                       "~/assets/css/Table-with-search--sort-filters.css"
                       )
                 );
+            bundles.Add(new StyleBundle("~/assets/login").Include(
+                "~/assets/bootstrap/css/bootstrap.min.css",
+                "~/assets/css/Pretty-Registration-Form.css"));
+
+            bundles.Add(new StyleBundle("~/assets/js").Include(
+                 "~/assets/bs-init.js",
+                 "~/assets/chart.min.js",
+                 "~/assets/jquery.min.js",
+                 "~/Table-with-search--sort-filters.js",
+                 "~/assets/theme.js"
+                ));
         }
     }
 }

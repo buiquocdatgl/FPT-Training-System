@@ -10,6 +10,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FPT_Trainning.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web.Security;
+using FPT_Trainning.ViewModel;
+using System.Data.Entity;
 
 namespace FPT_Trainning.Controllers
 {
@@ -94,6 +97,179 @@ namespace FPT_Trainning.Controllers
             }
         }
 
+        public async Task<ActionResult> Profile()
+        {
+            var userId = User.Identity.GetUserId();
+            if (User.IsInRole("TRAINER"))
+            {
+                ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
+                var trainerInfo = _context.Trainers.SingleOrDefault(t => t.TrainerId == currentUser.Id);
+                if (trainerInfo == null)
+                {
+                    var userTrainer = new UserInfo()
+                    {
+                        user = currentUser,
+                    };
+                    return View(userTrainer);
+                }
+                var userInfoTrainer = new UserInfo()
+                {
+                    user = currentUser,
+                    trainer = trainerInfo
+                };
+                return View(userInfoTrainer);
+
+            }
+            if (User.IsInRole("TRAINEE"))
+            {
+                ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
+                var traineeInfo = _context.Trainees.SingleOrDefault(t => t.TraineeId == currentUser.Id);
+
+                var userInfoTrainee = new UserInfo()
+                {
+                    user = currentUser,
+                    trainee = traineeInfo
+                };
+                return View(userInfoTrainee);
+            }
+            
+            ApplicationUser user = _context.Users.FirstOrDefault(x => x.Id == userId);
+            var userInfo = new UserInfo()
+            {
+                user = user
+            };
+            return View(userInfo);
+        }
+        [HttpGet]
+        public ActionResult UpdateProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser user = _context.Users.FirstOrDefault(x => x.Id == userId);
+            var userInfo = new UserInfo()
+            {
+                user = user
+            };
+            return View(userInfo);
+        }
+        [HttpPost]
+        public ActionResult UpdateProfile(ApplicationUser user)
+        {
+            var userInDb = _context.Users.SingleOrDefault(u => u.Id == user.Id);
+            userInDb.FullName = user.FullName;
+            userInDb.PhoneNumber = user.PhoneNumber;
+            _context.SaveChanges();
+            return RedirectToAction("Profile");
+        }
+        [Authorize(Roles = "TRAINER,STAFF")]
+        [HttpGet]
+        public ActionResult UpdateTrainerProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
+            var trainerInfo = _context.Trainers.SingleOrDefault(t => t.TrainerId == currentUser.Id);
+
+            var userInfoTrainer = new UserInfo()
+            {
+                user = currentUser,
+                trainer = trainerInfo
+            };
+            return View(userInfoTrainer);
+        }
+        [HttpPost]
+        public ActionResult UpdateTrainerProfile(Trainer trainer)
+        {
+            var trainerInfoInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == trainer.TrainerId);
+            trainerInfoInDb.Education = trainer.Education;
+            trainerInfoInDb.Phone = trainer.Phone;
+            trainerInfoInDb.WorkingPlace = trainer.WorkingPlace;
+            trainerInfoInDb.Type = trainer.Type;
+            _context.SaveChanges();
+            return RedirectToAction("Profile");
+        }
+        [Authorize(Roles = "STAFF,TRAINEE")]
+        [HttpGet]
+        public ActionResult UpdateTraineeProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
+            var traineeInfo = _context.Trainees.SingleOrDefault(t => t.TraineeId == currentUser.Id);
+
+            var userInfoTrainee = new UserInfo()
+            {
+                user = currentUser,
+                trainee = traineeInfo
+            };
+            return View(userInfoTrainee);
+        }
+        [HttpPost]
+        public ActionResult UpdateTraineeProfile(Trainee trainee)
+        {
+            var traineeInfoInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == trainee.TraineeId);
+            traineeInfoInDb.ProgramLanguage = trainee.ProgramLanguage;
+            traineeInfoInDb.Age = trainee.Age;
+            traineeInfoInDb.DOB = trainee.DOB;
+            traineeInfoInDb.Experience = trainee.Experience;
+            traineeInfoInDb.Education = trainee.Education;
+            traineeInfoInDb.ToeicScore = trainee.ToeicScore;
+            _context.SaveChanges();
+            return RedirectToAction("Profile");
+        }
+
+        public ActionResult ViewCourse()
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser currentUser = _context.Users.SingleOrDefault(x => x.Id == userId);
+            if (User.IsInRole("TRAINER"))
+            {
+                var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == currentUser.Id);
+                if (trainerInDb == null)
+                {
+                    TempData["MessageError"] = "You do not have Trainer Profile";
+                    return RedirectToAction("Index", "Home");
+                    
+                }
+                var courseTrainer = _context.Courses.SingleOrDefault(c => c.Id == trainerInDb.CourseId);
+                if (courseTrainer == null)
+                {
+                    TempData["MessageError"] = "You do not have Course Assign";
+                    return RedirectToAction("Index", "Home");
+                }
+                var courses = _context.Courses.Include(c => c.Category).ToList();
+
+                var userInfoTrainer = new UserInfo()
+                {
+                    user = currentUser,
+                    trainer = trainerInDb
+                };
+                return View(courseTrainer);
+
+            }
+            else if (User.IsInRole("TRAINEE"))
+            {
+                var traineeInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == currentUser.Id);
+                if (traineeInDb == null)
+                {
+                    TempData["MessageError"] = "You do not have Trainee Profile";
+                    return RedirectToAction("Index", "Home");
+
+                }
+                var courseTrainee = _context.Courses.SingleOrDefault(c => c.Id == traineeInDb.CourseId);
+                if (courseTrainee == null)
+                {
+                    TempData["MessageError"] = "You do not have Course Assign";
+                    return RedirectToAction("Index", "Home");
+                }
+                var courses = _context.Courses.Include(c => c.Category).ToList();
+
+                var userInfoTrainee = new UserInfo()
+                {
+                    user = currentUser,
+                    trainee = traineeInDb
+                };
+                return View(courseTrainee);
+            }
+            return HttpNotFound();
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -173,27 +349,27 @@ namespace FPT_Trainning.Controllers
                         var newTrainer = new Trainer()
                         {
                             TrainerId = user.Id,
-                            UserName = user.UserName
+                           
                         };
                         _context.Trainers.Add(newTrainer);
+                        _context.SaveChanges();
+                        TempData["MessageSuccess"] = "Register Trainer Successfully";
+                        return RedirectToAction("Index", "Trainers");
                     }
                     if (model.RoleName.Equals("TRAINEE"))
                     {
                         var newTrainee = new Trainee()
                         {
                             TraineeId = user.Id,
-                            UserName = user.UserName
+                            
                         };
                         _context.Trainees.Add(newTrainee);
+                        _context.SaveChanges();
+                        TempData["MessageSuccess"] = "Register Trainee Successfully";
+                        return RedirectToAction("Index", "Trainees");
                     }
                     _context.SaveChanges();
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Staffs");
                 }
                 AddErrors(result);
             }
@@ -263,13 +439,25 @@ namespace FPT_Trainning.Controllers
         // GET: /Account/ResetPassword
         public ActionResult ResetPassword(string id)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Id == id);
-            if (user == null) return HttpNotFound();
-            var resetUser = new ResetPasswordViewModel()
+            if (User.IsInRole("ADMIN") || User.IsInRole("STAFF"))
             {
-                User = user
+                var user1 = _context.Users.SingleOrDefault(u => u.Id == id);
+                if (user1 == null) return HttpNotFound();
+                var resetUser1 = new ResetPasswordViewModel()
+                {
+                    User = user1
+                };
+                return View(resetUser1);
+            }
+            var currentUserId = User.Identity.GetUserId();
+            ApplicationUser webUser = _context.Users.FirstOrDefault(u => u.Id == currentUserId);
+            var user2 = _context.Users.SingleOrDefault(u => u.Id == webUser.Id);
+            if (user2 == null) return HttpNotFound();
+            var resetUser2 = new ResetPasswordViewModel()
+            {
+                User = webUser
             };
-            return View(resetUser);
+            return View(resetUser2);
         }
 
         //
@@ -285,13 +473,14 @@ namespace FPT_Trainning.Controllers
             var user = await UserManager.FindByNameAsync(model.User.UserName);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
+               
                 return RedirectToAction("Index", "Home");
             }
             await UserManager.RemovePasswordAsync(user.Id);
             var result = await UserManager.AddPasswordAsync(user.Id, model.Password);
             if (result.Succeeded)
             {
+                TempData["MessageSuccess"] = "You Resest Password Successfully";
                 return RedirectToAction("Index", "Home");
             }
             AddErrors(result);
@@ -420,6 +609,13 @@ namespace FPT_Trainning.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Login", "Account");
+        }
         //
         // POST: /Account/LogOff
         [HttpPost]

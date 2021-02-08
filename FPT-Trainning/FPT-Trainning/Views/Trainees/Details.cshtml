@@ -2,21 +2,35 @@
 @{ ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";}
 
-<h2>Profile details of this trainee</h2>
+<h2 style="margin-left:20px; padding-bottom:20px">Profile details of this trainee</h2>
 
 @Html.ActionLink("Back to Trainees List", "Index", "Trainees",
     null,
-    new { @class = "btn btn-primary" })
-
-<ul>
-    <li>E-mail: @Model.UserName</li>
-    <li>Full name: @Model.ApplicationUser.FullName</li>
-    <li>Programming language: @Model.ProgramLanguage</li>
-    <li>Age: @Model.Age</li>
-    <li>Date of birth: @Model.DOB</li>
-    <li>Experience level: @Model.Experience</li>
-    <li>Education level: @Model.Education</li>
-    <li>Address: @Model.Location</li>
-    <li>TOEIC rating: @Model.ToeicScore</li>
-</ul>
+    new { @class = "btn btn-primary" ,style = "margin-left:20px" })
+<table class="table table-bordered" , style="margin:15px 0px 0px 20px">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>E-mail</th>
+            <th>Full name</th>
+            <th>Programming Language</th>
+            <th>Age</th>
+            <th>Date of Birth</th>
+            <th>Experience Level</th>
+            <th>Address</th>
+            <th>TOEIC rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:black; text-align:center">
+            <td>@Model.ApplicationUser.Email</td>
+            <td>@Model.ApplicationUser.FullName</td>
+            <td>@Model.ProgramLanguage</td>
+            <td>@Model.Age</td>
+            <td>@Model.DOB</td>
+            <td>@Model.Experience</td>
+            <td>@Model.Location</td>
+            <td>@Model.ToeicScore</td>
+        </tr>
+    </tbody>
+</table>
 

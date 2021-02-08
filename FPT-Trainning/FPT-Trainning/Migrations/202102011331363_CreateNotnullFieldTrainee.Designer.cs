@@ -7,13 +7,13 @@ namespace FPT_Trainning.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CreateIsValid : IMigrationMetadata
+    public sealed partial class CreateNotnullFieldTrainee : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateIsValid));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateNotnullFieldTrainee));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101301809592_CreateIsValid"; }
+            get { return "202102011331363_CreateNotnullFieldTrainee"; }
         }
         
         string IMigrationMetadata.Source

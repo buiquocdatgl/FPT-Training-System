@@ -180,33 +180,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101310215510_Reset.cs" />
-    <Compile Include="Migrations\202101310215510_Reset.Designer.cs">
-      <DependentUpon>202101310215510_Reset.cs</DependentUpon>
+    <Compile Include="Migrations\202101311640478_CreateDatabase.cs" />
+    <Compile Include="Migrations\202101311640478_CreateDatabase.Designer.cs">
+      <DependentUpon>202101311640478_CreateDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101310528064_RevampedPWReset.cs" />
-    <Compile Include="Migrations\202101310528064_RevampedPWReset.Designer.cs">
-      <DependentUpon>202101310528064_RevampedPWReset.cs</DependentUpon>
+    <Compile Include="Migrations\202102011331363_CreateNotnullFieldTrainee.cs" />
+    <Compile Include="Migrations\202102011331363_CreateNotnullFieldTrainee.Designer.cs">
+      <DependentUpon>202102011331363_CreateNotnullFieldTrainee.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101221423535_AddCoursesToTrainer.cs" />
-    <Compile Include="Migrations\202101221423535_AddCoursesToTrainer.Designer.cs">
-      <DependentUpon>202101221423535_AddCoursesToTrainer.cs</DependentUpon>
+    <Compile Include="Migrations\202102011337541_CreateNotnullFieldTrainee0-1.cs" />
+    <Compile Include="Migrations\202102011337541_CreateNotnullFieldTrainee0-1.Designer.cs">
+      <DependentUpon>202102011337541_CreateNotnullFieldTrainee0-1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101221439406_AddCourseIdInTrainer.cs" />
-    <Compile Include="Migrations\202101221439406_AddCourseIdInTrainer.Designer.cs">
-      <DependentUpon>202101221439406_AddCourseIdInTrainer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101221514107_AddCourseAndCourseId.cs" />
-    <Compile Include="Migrations\202101221514107_AddCourseAndCourseId.Designer.cs">
-      <DependentUpon>202101221514107_AddCourseAndCourseId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101240535320_AllowNullFK.cs" />
-    <Compile Include="Migrations\202101240535320_AllowNullFK.Designer.cs">
-      <DependentUpon>202101240535320_AllowNullFK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101301809592_CreateIsValid.cs" />
-    <Compile Include="Migrations\202101301809592_CreateIsValid.Designer.cs">
-      <DependentUpon>202101301809592_CreateIsValid.cs</DependentUpon>
+    <Compile Include="Migrations\202102030539077_UpdateTrainerModel.cs" />
+    <Compile Include="Migrations\202102030539077_UpdateTrainerModel.Designer.cs">
+      <DependentUpon>202102030539077_UpdateTrainerModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -225,6 +213,7 @@
     <Compile Include="ViewModel\CourseCategoriesViewModel.cs" />
     <Compile Include="ViewModel\AssignTrainerToCourses.cs" />
     <Compile Include="ViewModel\ListTrainerAndTraineeInCourse.cs" />
+    <Compile Include="ViewModel\UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\bootstrap\css\bootstrap.min.css" />
@@ -293,7 +282,6 @@
     <Content Include="assets\fonts\ionicons.eot" />
     <Content Include="assets\fonts\ionicons.ttf" />
     <Content Include="assets\fonts\ionicons.woff" />
-    <Content Include="ClassDiagram1.cd" />
     <Content Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
@@ -442,19 +430,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Details.cshtml" />
-    <Content Include="Views\Categories\Update.cshtml" />
-    <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Courses\Update.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Trainers\Index.cshtml" />
     <Content Include="Views\Assign\Index.cshtml" />
     <Content Include="Views\Assign\AddTrainerAssign.cshtml" />
     <Content Include="Views\Assign\AddTraineeAssign.cshtml" />
-    <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -467,14 +446,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Details.cshtml" />
-    <Content Include="Views\Categories\Update.cshtml" />
-    <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Courses\Update.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Trainers\Details.cshtml" />
     <Content Include="Views\Trainers\Index.cshtml" />
     <Content Include="Views\Trainers\Update.cshtml" />
@@ -484,12 +455,25 @@
     <Content Include="Views\Staffs\Index.cshtml" />
     <Content Include="Views\Staffs\Details.cshtml" />
     <Content Include="Views\Staffs\Update.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Update.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Courses\Update.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\UpdateProfile.cshtml" />
+    <Content Include="Views\Account\UpdateTrainerProfile.cshtml" />
+    <Content Include="Views\Account\ViewCourse.cshtml" />
+    <Content Include="Views\Account\UpdateTraineeProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
@@ -499,35 +483,22 @@
     <Content Include="Views\Assign\ChangeTraineeAssign.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Views\Trainees\" />
+    <EmbeddedResource Include="Migrations\202101311640478_CreateDatabase.resx">
+      <DependentUpon>202101311640478_CreateDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102011331363_CreateNotnullFieldTrainee.resx">
+      <DependentUpon>202102011331363_CreateNotnullFieldTrainee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102011337541_CreateNotnullFieldTrainee0-1.resx">
+      <DependentUpon>202102011337541_CreateNotnullFieldTrainee0-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102030539077_UpdateTrainerModel.resx">
+      <DependentUpon>202102030539077_UpdateTrainerModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101310215510_Reset.resx">
-      <DependentUpon>202101310215510_Reset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101310528064_RevampedPWReset.resx">
-      <DependentUpon>202101310528064_RevampedPWReset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101221423535_AddCoursesToTrainer.resx">
-      <DependentUpon>202101221423535_AddCoursesToTrainer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101221439406_AddCourseIdInTrainer.resx">
-      <DependentUpon>202101221439406_AddCourseIdInTrainer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101221514107_AddCourseAndCourseId.resx">
-      <DependentUpon>202101221514107_AddCourseAndCourseId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101240535320_AllowNullFK.resx">
-      <DependentUpon>202101240535320_AllowNullFK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101301809592_CreateIsValid.resx">
-      <DependentUpon>202101301809592_CreateIsValid.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

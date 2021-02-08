@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace FPT_Trainning.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()

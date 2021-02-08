@@ -3,7 +3,7 @@ namespace FPT_Trainning.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Reset : DbMigration
+    public partial class CreateDatabase : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,8 @@ namespace FPT_Trainning.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Description = c.String(),
+                        Name = c.String(nullable: false, maxLength: 255),
+                        Description = c.String(nullable: false, maxLength: 255),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -22,12 +22,12 @@ namespace FPT_Trainning.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Description = c.String(),
-                        CategoryId = c.Int(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 255),
+                        Description = c.String(nullable: false, maxLength: 255),
+                        CategoryId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
+                .ForeignKey("dbo.Categories", t => t.CategoryId)
                 .Index(t => t.CategoryId);
             
             CreateTable(
@@ -66,10 +66,13 @@ namespace FPT_Trainning.Migrations
                         Education = c.String(),
                         Location = c.String(),
                         ToeicScore = c.Int(nullable: false),
+                        CourseId = c.Int(),
                     })
                 .PrimaryKey(t => t.TraineeId)
                 .ForeignKey("dbo.AspNetUsers", t => t.TraineeId)
-                .Index(t => t.TraineeId);
+                .ForeignKey("dbo.Courses", t => t.CourseId)
+                .Index(t => t.TraineeId)
+                .Index(t => t.CourseId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -127,26 +130,33 @@ namespace FPT_Trainning.Migrations
                         Phone = c.Int(nullable: false),
                         WorkingPlace = c.String(),
                         Type = c.Int(nullable: false),
+                        CourseId = c.Int(),
                     })
                 .PrimaryKey(t => t.TrainerId)
                 .ForeignKey("dbo.AspNetUsers", t => t.TrainerId)
-                .Index(t => t.TrainerId);
+                .ForeignKey("dbo.Courses", t => t.CourseId)
+                .Index(t => t.TrainerId)
+                .Index(t => t.CourseId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Trainees", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.Trainees", "TraineeId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Trainers", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.Trainers", "TrainerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Courses", "CategoryId", "dbo.Categories");
+            DropIndex("dbo.Trainers", new[] { "CourseId" });
             DropIndex("dbo.Trainers", new[] { "TrainerId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Trainees", new[] { "CourseId" });
             DropIndex("dbo.Trainees", new[] { "TraineeId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });

@@ -2,18 +2,32 @@
 @{ ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";}
 
-<h2>Profile details of this trainer</h2>
+<h2 style="margin-left:20px; padding-bottom:20px">Profile details of this Trainer</h2>
 
 @Html.ActionLink("Back to Trainers' Index", "Index", "Trainers",
     null,
-    new { @class = "btn btn-primary" })
+    new { @class = "btn btn-primary", style = "margin-left:20px" })
 
-<ul>
-    <li>E-mail: @Model.UserName</li>
-    <li>Full name: @Model.ApplicationUser.FullName</li>
-    <li>Education level: @Model.Education</li>
-    <li>Phone number: @Model.Phone</li>
-    <li>Working location: @Model.WorkingPlace</li>
-    <li>Type: @Model.Type</li>
-</ul>
+<table class="table table-bordered", style="margin:15px 0px 0px 20px">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>E-mail</th>
+            <th>Full name</th>
+            <th>Education Level</th>
+            <th>Phone number</th>
+            <th>Working Location</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:black; text-align:center">
+            <td>@Model.ApplicationUser.Email</td>
+            <td>@Model.ApplicationUser.FullName</td>
+            <td>@Model.Education</td>
+            <td>@Model.Phone</td>
+            <td>@Model.WorkingPlace</td>
+            <td>@Model.Type</td>
+        </tr>
+    </tbody>
+</table>
 

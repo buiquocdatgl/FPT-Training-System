@@ -1,0 +1,146 @@
+﻿@model FPT_Trainning.ViewModel.UserInfo
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Profile</h3>
+    <div class="row mb-3">
+        <div class="col-lg-12">
+            <div class="row mb-3 d-none">
+                <div class="col">
+                    <div class="card text-white bg-primary shadow">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p class="m-0">Peformance</p>
+                                    <p class="m-0"><strong>65.2%</strong></p>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                            </div>
+                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card text-white bg-success shadow">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p class="m-0">Peformance</p>
+                                    <p class="m-0"><strong>65.2%</strong></p>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                            </div>
+                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold">Application User</p>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="username"><strong>Username</strong></label><input class="form-control" type="text" placeholder="user.name" name="username" value="@Model.user.UserName" disabled></div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" placeholder="user@example.com" name="email" value="@Model.user.Email" disabled></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="full name"><strong>Full Name</strong></label><input class="form-control" type="text" placeholder="John" name="full name" value="@Model.user.FullName" disabled></div>
+                                    </div>
+                                </div>
+                                @Html.ActionLink("Update", "UpdateProfile", "Account", null,
+                 new { @class = "btn btn-primary", style = "margin-left: 20px" })
+                            </form>
+                        </div>
+                    </div>
+                    @if (User.IsInRole("TRAINER") && Model.trainer != null)
+                    {
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 font-weight-bold">Trainer Profile</p>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="username"><strong>Education</strong></label><input class="form-control" type="text" placeholder="user.name" name="username" value="@Model.trainer.Education" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="email"><strong>Phone</strong></label><input class="form-control" type="email" placeholder="user@example.com" name="email" value="@Model.trainer.Phone" disabled></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="first_name"><strong>Working Place</strong></label><input class="form-control" type="text" placeholder="John" name="first_name" value="@Model.trainer.WorkingPlace" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="last_name"><strong>Type</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name" value="@Model.trainer.Type" disabled></div>
+                                        </div>
+                                    </div>
+                                    @Html.ActionLink("Update Profile", "UpdateTrainerProfile", "Account", null,
+                                        new { @class = "btn btn-primary", style = "margin-left: 20px" })
+                                    @Html.ActionLink("Change Password", "ResetPassword", "Account", null,
+                                       new { @class = "btn btn-dark", style = "margin-left: 20px" })
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    @if (User.IsInRole("TRAINEE") && Model.trainee != null)
+                    {
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 font-weight-bold">Trainee Profile</p>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="username"><strong>Programming Language</strong></label><input class="form-control" type="text" placeholder="user.name" name="programlanguage" value="@Model.trainee.ProgramLanguage" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="email"><strong>Age</strong></label><input class="form-control" type="email" placeholder="user@example.com" name="email" value="@Model.trainee.Age" disabled></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="first_name"><strong>DOB</strong></label><input class="form-control" type="text" placeholder="John" name="first_name" value="@Model.trainee.DOB" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="last_name"><strong>Experience</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name" value="@Model.trainee.Experience" disabled></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="first_name"><strong>Education</strong></label><input class="form-control" type="text" placeholder="John" name="first_name" value="@Model.trainee.Education" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="last_name"><strong>Location</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name" value="@Model.trainee.Location" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="last_name"><strong>Toeic Score</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name" value="@Model.trainee.ToeicScore" disabled></div>
+                                        </div>
+                                    </div>
+                                    @Html.ActionLink("Update", "UpdateTraineeProfile", "Account", null,
+                                        new { @class = "btn btn-primary", style = "margin-left: 20px" })
+                                    @Html.ActionLink("Change Password", "ResetPassword", "Account", null,
+                                      new { @class = "btn btn-dark", style = "margin-left: 20px" })
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

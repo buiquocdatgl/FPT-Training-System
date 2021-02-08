@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@Model.Course.Name</h2>
+<h2 style="margin-left: 20px">@Model.Course.Name</h2>
 <div class="container-fluid">
     <div class="card" id="TableSorterCard">
         <div class="card-header py-3">
@@ -138,4 +138,4 @@
 </div>
 @Html.ActionLink("Back to Courses Detail", "Details", "Courses",
   new { id = Model.Course.Id },
-  new { @class = "btn btn-primary" })
+  new { @class = "btn btn-primary", style = "margin: 20px 0px 0px 20px" })
