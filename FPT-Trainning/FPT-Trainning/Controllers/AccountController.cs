@@ -333,7 +333,13 @@ namespace FPT_Trainning.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {   
+            {
+                var checkuser = _context.Users.Where(u => u.UserName == model.Email);
+                if (checkuser.Any())
+                {
+                    TempData["MessageError"] = "Can not Register, UserName already Existed";
+                    return RedirectToAction("Index", "Home");
+                }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -346,6 +352,7 @@ namespace FPT_Trainning.Controllers
                     userManager.AddToRole(user.Id, model.RoleName);
                     if (model.RoleName.Equals("TRAINER"))
                     {
+
                         var newTrainer = new Trainer()
                         {
                             TrainerId = user.Id,

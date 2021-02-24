@@ -32,7 +32,7 @@
                 <td>
                     @if (User.IsInRole("ADMIN"))
                     {
-                        @Html.ActionLink("Details of this staff's account", "Details", "Staffs",
+                        @Html.ActionLink("Edit Profile", "Update", "Staffs",
                                                              new { id = item.Id },
                                                              new { @class = "btn btn-primary" })
                         @Html.ActionLink("Delete this staff", "Delete", "Staffs",

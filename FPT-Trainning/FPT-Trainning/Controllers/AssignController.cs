@@ -87,6 +87,12 @@ namespace FPT_Trainning.Controllers
         [HttpGet]
         public ActionResult ChangeTrainerAssign(int CourseId, string TrainerId)
         {
+            var CoursesExclude = _context.Courses.Where(c => c.Id != CourseId);
+            if (CoursesExclude.Count() == 0)
+            {
+                TempData["MessageError"] = "Can't find Course to Change";
+                return RedirectToAction("Index" ,new { id = CourseId});
+            }
             var checkTrainer = _context.Trainers.SingleOrDefault(t => t.TrainerId == TrainerId);
             if (checkTrainer == null)
             {
@@ -112,7 +118,7 @@ namespace FPT_Trainning.Controllers
                     }
                 }
             }
-            var CoursesExclude = _context.Courses.Where(c => c.Id != CourseId);
+
             var changeViewmodel = new ChangeTrainerAssign()
             {
                 Courses = CoursesExclude,

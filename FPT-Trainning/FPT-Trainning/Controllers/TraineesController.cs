@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace FPT_Trainning.Controllers
 {
+    [Authorize(Roles = "STAFF")]
     public class TraineesController : Controller
     {
         private ApplicationDbContext _context;
@@ -60,27 +61,25 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Update(Trainee trainee)
         {
-            var checkTrainee = _context.Trainees.SingleOrDefault(t => t.TraineeId == trainee.TraineeId);
-            if (checkTrainee == null)
-            {
-                TempData["MessageError"] = "Can not Find Trainee to Update";
-                return RedirectToAction("Update");
-            }
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            var traineeInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == trainee.TraineeId);
+            var traineeInDb =_context.Trainees.SingleOrDefault(t => t.TraineeId == trainee.TraineeId);
+            
+            if (traineeInDb == null)
             {
-                traineeInDb.ApplicationUser.FullName = trainee.ApplicationUser.FullName;
-                traineeInDb.ProgramLanguage = trainee.ProgramLanguage;
-                traineeInDb.Age = trainee.Age;
-                traineeInDb.DOB = trainee.DOB;
-                traineeInDb.Experience = trainee.Experience;
-                traineeInDb.Education = trainee.Education;
-                traineeInDb.Location = trainee.Location;
-                traineeInDb.ToeicScore = trainee.ToeicScore;
+                TempData["MessageError"] = "Can not Find Trainee to Update";
+                return RedirectToAction("Update");
             }
+            traineeInDb.ApplicationUser.FullName = trainee.ApplicationUser.FullName;
+            traineeInDb.ProgramLanguage = trainee.ProgramLanguage;
+            traineeInDb.Age = trainee.Age;
+            traineeInDb.DOB = trainee.DOB;
+            traineeInDb.Experience = trainee.Experience;
+            traineeInDb.Education = trainee.Education;
+            traineeInDb.Location = trainee.Location;
+        
             _context.SaveChanges();
             TempData["MessageSuccess"] = "Update Trainee Successfully";
             return RedirectToAction("Index");
@@ -88,8 +87,6 @@ namespace FPT_Trainning.Controllers
 
         public ActionResult Delete(string id)
         {
-            if (User.IsInRole("ADMIN"))
-            {
                 var userInDb = _context.Users.SingleOrDefault(u => u.Id == id);
                 if (userInDb == null)
                 {
@@ -107,17 +104,6 @@ namespace FPT_Trainning.Controllers
                 _context.SaveChanges();
                 TempData["MessageSuccess"] = "Delete Trainee Successfully";
                 return RedirectToAction("Index");
-            }
-            var trainee = _context.Trainees.SingleOrDefault(t => t.TraineeId == id);
-            if (trainee == null)
-            {
-                TempData["MessageError"] = "The Trainee doesn't Exist";
-                return RedirectToAction("Index");
-            }
-            _context.Trainees.Remove(trainee);
-            _context.SaveChanges();
-            TempData["MessageSuccess"] = "Delete Trainee Successfully";
-            return RedirectToAction("Index");
         }
     }
 }

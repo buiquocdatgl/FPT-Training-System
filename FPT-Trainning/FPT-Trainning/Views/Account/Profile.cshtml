@@ -131,8 +131,6 @@
                                             <div class="form-group"><label for="last_name"><strong>Toeic Score</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name" value="@Model.trainee.ToeicScore" disabled></div>
                                         </div>
                                     </div>
-                                    @Html.ActionLink("Update", "UpdateTraineeProfile", "Account", null,
-                                        new { @class = "btn btn-primary", style = "margin-left: 20px" })
                                     @Html.ActionLink("Change Password", "ResetPassword", "Account", null,
                                       new { @class = "btn btn-dark", style = "margin-left: 20px" })
                                 </form>

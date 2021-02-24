@@ -59,7 +59,7 @@ namespace FPT_Trainning.Controllers
                 TempData["MessageError"] = "Please input the Course Name";
                 return RedirectToAction("Create");
             }
-            var checkCourse = _context.Courses.Where(t => t.Name == course.Name);
+            var checkCourse = _context.Courses.Where(c => c.Name == course.Name);
 
             if (checkCourse.Count() > 0)
             {
@@ -73,14 +73,11 @@ namespace FPT_Trainning.Controllers
             }
             else
             {
-                if (true)
-                {
-
-                }
                 var newCourse = new Course()
                 {
                     Name = course.Name,
                     Description = course.Description,
+                    IsAvailable = course.IsAvailable,
                     CategoryId = course.CategoryId
 
                 };
@@ -93,7 +90,7 @@ namespace FPT_Trainning.Controllers
 
         public ActionResult Details(int id)
         {
-            var coursesInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
+            var coursesInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
             if (coursesInDb == null)
             {
                 TempData["MessageError"] = "The Course Name doesn't Exist";
@@ -106,7 +103,7 @@ namespace FPT_Trainning.Controllers
         [HttpGet]
         public ActionResult Update(int id)
         {
-            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
+            var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
             if (courseInDb == null)
             {
                 TempData["MessageError"] = "The Course Name doesn't Exist";
@@ -128,14 +125,14 @@ namespace FPT_Trainning.Controllers
                 TempData["MessageError"] = "Please input the Course Name";
                 return RedirectToAction("Update");
             }
-            var checkCourse = _context.Courses.Where(t => t.Name == course.Name);
-            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == course.Id);
+            var checkCourse = _context.Courses.Where(c => c.Name == course.Name);
+            var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == course.Id);
             if (courseInDb == null)
             {
                 TempData["MessageError"] = "The Course doesn't Exist";
                 return RedirectToAction("Index");
             }
-            else if (checkCourse.Any() > 0)
+            else if (checkCourse.Any())
             {
                 if (courseInDb.Name != course.Name)
                 {

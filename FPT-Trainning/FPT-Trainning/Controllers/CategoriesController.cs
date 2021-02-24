@@ -22,7 +22,7 @@ namespace FPT_Trainning.Controllers
             if (!searchInput.IsNullOrWhiteSpace())
             {
                 categories = _context.Categories
-                .Where(m => m.Name.Contains(searchInput) || m.Description.Contains(searchInput))
+                .Where(c => c.Name.Contains(searchInput) || c.Description.Contains(searchInput))
                 .ToList();
             }
             return View(categories);
@@ -42,7 +42,7 @@ namespace FPT_Trainning.Controllers
                     TempData["MessageError"] = "Can Not Create Category";
                     return View();
                 }
-                var checkCategory = _context.Categories.Where(t => t.Name == category.Name);
+                var checkCategory = _context.Categories.Where(c => c.Name == category.Name);
                 if (checkCategory.Count() > 0)
                 {
                     TempData["MessageError"] = "The Category Name already Existed";
@@ -80,7 +80,7 @@ namespace FPT_Trainning.Controllers
                     TempData["MessageError"] = "The Category does not Exist";
                     return RedirectToAction("Index");
                 }
-                return View();
+                return View(categoryInDb);
             }
 
             [HttpPost]
@@ -91,29 +91,29 @@ namespace FPT_Trainning.Controllers
                 TempData["MessageError"] = "Please input the Category Name";
                 return RedirectToAction("Update");
                 }
+                var checkCategory = _context.Categories.Where(c => c.Name == category.Name);
                 var categoryInDb = _context.Categories.SingleOrDefault(c => c.Id == category.Id);
                 if (categoryInDb == null)
                 {
                     TempData["MessageError"] = "The Category doesn't Exist";
                     return RedirectToAction("Index");
                 }
-                var checkCategory = _context.Categories.Where(t => t.Name == category.Name);
-                if (checkCategory.Count() > 0)
+                else if (checkCategory.Any())
                 {
+                    if (categoryInDb.Name != category.Name)
+                    {
                     TempData["MessageError"] = "The Category Name already Existed";
                     return View("Update");
+                    } 
                 }
-                else
+                if (!ModelState.IsValid)
                 {
-                    if (!ModelState.IsValid)
-                    {
-                        TempData["MessageError"] = "Can Not Update Category";
-                        return View();
-                    }
-                    categoryInDb.Name = category.Name;
-                    categoryInDb.Description = category.Description;
-                    _context.SaveChanges();
+                    TempData["MessageError"] = "Can Not Update Category";
+                    return View();
                 }
+                categoryInDb.Name = category.Name;
+                categoryInDb.Description = category.Description;
+                _context.SaveChanges();
                 TempData["MessageSuccess"] = "Update Category Successfully";
                 return RedirectToAction("Index");
             }
@@ -126,7 +126,7 @@ namespace FPT_Trainning.Controllers
                     TempData["MessageError"] = "The Category doesn't Exist";
                     return RedirectToAction("Index");
                 }
-                var course = _context.Courses.Where(t => t.CategoryId == id);
+                var course = _context.Courses.Where(c => c.CategoryId == id);
 
                 if (course.Count() > 0)
                 {

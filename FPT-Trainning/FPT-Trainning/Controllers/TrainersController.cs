@@ -25,6 +25,19 @@ namespace FPT_Trainning.Controllers
         // GET: Trainers
         public ActionResult Index(string searchInput)
         {
+            if (User.IsInRole("ADMIN"))
+            {
+                var users = _context.Users
+                .Where(u => u.Roles.Any(r => r.RoleId == "3"))
+                .ToList();
+                var trainerAdminAccount = new ListTrainerAccount()
+                {
+                    Users = users,
+
+                };
+                return View(trainerAdminAccount);
+
+            }
             var trainers = _context.Trainers.ToList();
             if (!searchInput.IsNullOrWhiteSpace())
             {
@@ -34,7 +47,12 @@ namespace FPT_Trainning.Controllers
                     t.Education.Contains(searchInput))
                     .ToList();
             }
-            return View(trainers);
+            var trainerAccount = new ListTrainerAccount()
+            {
+                Trainers = trainers,
+
+            };
+            return View(trainerAccount);
         }
 
         public ActionResult Details(string id)
@@ -71,7 +89,8 @@ namespace FPT_Trainning.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return View();
+                TempData["MessageError"] = "Can Not Update Trainer";
+                return RedirectToAction("Update");
             }
            var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == trainer.TrainerId);
             {
@@ -97,12 +116,11 @@ namespace FPT_Trainning.Controllers
                     return RedirectToAction("Index");
                 }
                 var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == id);
-                if (trainerInDb == null)
+                if (trainerInDb != null)
                 {
-                    TempData["MessageError"] = "The Trainer doesn't Exist";
-                    return RedirectToAction("Index");
+                    _context.Trainers.Remove(trainerInDb);
+
                 }
-                _context.Trainers.Remove(trainerInDb);
                 _context.Users.Remove(userInDb);
                 _context.SaveChanges();
                 TempData["MessageSuccess"] = "Delete Trainer Successfully";

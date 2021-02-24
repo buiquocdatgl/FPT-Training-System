@@ -1,9 +1,9 @@
-namespace FPT_Trainning.Migrations
+﻿namespace FPT_Trainning.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateDatabase : DbMigration
+    public partial class CreateProject : DbMigration
     {
         public override void Up()
         {
@@ -25,6 +25,7 @@ namespace FPT_Trainning.Migrations
                         Name = c.String(nullable: false, maxLength: 255),
                         Description = c.String(nullable: false, maxLength: 255),
                         CategoryId = c.Int(),
+                        IsAvailable = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Categories", t => t.CategoryId)
@@ -58,14 +59,13 @@ namespace FPT_Trainning.Migrations
                 c => new
                     {
                         TraineeId = c.String(nullable: false, maxLength: 128),
-                        UserName = c.String(),
                         ProgramLanguage = c.String(),
-                        Age = c.Int(nullable: false),
-                        DOB = c.DateTime(nullable: false),
-                        Experience = c.Int(nullable: false),
+                        Age = c.Int(),
+                        DOB = c.DateTime(),
+                        Experience = c.Int(),
                         Education = c.String(),
                         Location = c.String(),
-                        ToeicScore = c.Int(nullable: false),
+                        ToeicScore = c.Int(),
                         CourseId = c.Int(),
                     })
                 .PrimaryKey(t => t.TraineeId)
@@ -125,11 +125,10 @@ namespace FPT_Trainning.Migrations
                 c => new
                     {
                         TrainerId = c.String(nullable: false, maxLength: 128),
-                        UserName = c.String(),
                         Education = c.String(),
-                        Phone = c.Int(nullable: false),
+                        Phone = c.String(),
                         WorkingPlace = c.String(),
-                        Type = c.Int(nullable: false),
+                        Type = c.Int(),
                         CourseId = c.Int(),
                     })
                 .PrimaryKey(t => t.TrainerId)

@@ -1,22 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Dashboard - Brand</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5  -overrides.min.css">
-    @Styles.Render("~/assets/css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     @Styles.Render("~/Content/css")
     <body style="padding:0">
         <div id="wrapper">
             <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
                 <div class="container-fluid d-flex flex-column p-0">
-                    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/">
                         <div class="sidebar-brand-icon rotate-n-15"><img src="~/assets/img/logo.png" alt=""  style="width:3rem"></div>
                         <div class="sidebar-brand-text mx-3"><span>FPT-Training <br /> System</span></div>
                     </a>
@@ -24,17 +19,17 @@
                     <ul class="nav navbar-nav text-light" id="accordionSidebar">
                         @if (User.IsInRole("ADMIN"))
                         {
-                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("AccountStaff", "Index", "Staffs", null, new { Style = "color:white" })</li>
-                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("AccountTrainer", "Index", "Trainers", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("Account Staff", "Index", "Staffs", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 75px  15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("Account Trainer", "Index", "Trainers", null, new { Style = "color:white" })</li>
                             <li class="nav-item" style="padding:15px 100px 15px 0px"><i class="fas fa-user-circle" style="margin-right:8px"></i>@Html.ActionLink("Register", "Register", "Account", null, new { Style = "color:white" })</li>
                         }
                         @if (User.IsInRole("STAFF"))
                         {
-                            <li class="nav-item" style="padding:25px 100px 15px 0px"><i class="fas fa-tachometer-alt" style="margin-right:8px"></i><span>Dashboard</span></li>
-                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("Trainer", "Index", "Trainers", null, new { Style = "color:white" })</li>
-                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("Trainee", "Index", "Trainees", null, new { Style = "color:white" })</li>
-                            <li class="nav-item" style="padding:25px 100px 15px 0px"><i class="fas fa-table" style="margin-right:8px"></i>@Html.ActionLink("Course", "Index", "Courses", null, new { Style = "color:white" })</li>
-                            <li class="nav-item" style="padding:25px 100px 15px 0px"><i class="fas fa-tags" style="margin-right:8px"></i>@Html.ActionLink("Category", "Index", "Categories", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 70px 15px 0px"><i class="fas fa-tachometer-alt" style="margin-right:8px"></i><span>Dashboard</span></li>
+                            <li class="nav-item" style="padding:25px 70px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("Manage Trainer", "Index", "Trainers", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 70px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("Manage Trainee", "Index", "Trainees", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 70px 15px 0px"><i class="fas fa-table" style="margin-right:8px"></i>@Html.ActionLink("Manage Course", "Index", "Courses", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 70px 15px 0px"><i class="fas fa-tags" style="margin-right:8px"></i>@Html.ActionLink("Manage Category", "Index", "Categories", null, new { Style = "color:white" })</li>
                             <li class="nav-item" style="padding:15px 100px 15px 0px"><i class="fas fa-user-circle" style="margin-right:8px"></i>@Html.ActionLink("Register", "Register", "Account", null, new { Style = "color:white" })</li>
                         }
                         @if (User.IsInRole("TRAINER"))
@@ -50,7 +45,6 @@
                     <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
                 </div>
             </nav>
-
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
                     <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
