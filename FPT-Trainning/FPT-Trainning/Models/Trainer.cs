@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,11 +10,28 @@ namespace FPT_Trainning.Models
 {
     public class Trainer
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
+        
+        [ForeignKey("ApplicationUser")]
+        public string TrainerId { get; set; }
+        
+        [DisplayName("Education level")]
+        public string Education { get; set; }
+        [DisplayName("Phone number")]
         public string Phone { get; set; }
+        [DisplayName("Working location")]
         public string WorkingPlace { get; set; }
-        public string Type { get; set; }
+        public TrainerType? Type { get; set; }
+        public int? CourseId { get; set; }
+        public Course course { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+       
     }
+    public enum TrainerType
+    {
+        None = 0,
+        Internal = 1,
+        External = 2
+    }
+
 }

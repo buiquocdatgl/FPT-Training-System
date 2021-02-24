@@ -1,0 +1,26 @@
+﻿@model FPT_Trainning.Models.ApplicationUser
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";}
+
+<h2 style="margin:0px 0px 20px 20px">Account details of this staff</h2>
+
+@Html.ActionLink("Back to Staffs' Index", "Index", "Staffs",
+    null,
+    new { @class = "btn btn-primary", style = "margin-left: 20px" })
+
+<table class="table table-bordered" style="margin-left: 20px">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>Email</th>
+            <th>Full Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:black; text-align:center">
+            <td>@Model.UserName</td>
+            <td>@Model.FullName</td>
+        </tr>
+    </tbody>
+</table>
+

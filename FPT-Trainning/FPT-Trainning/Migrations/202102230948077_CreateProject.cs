@@ -1,21 +1,35 @@
-namespace FPT_Trainning.Migrations
+﻿namespace FPT_Trainning.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateCourses : DbMigration
+    public partial class CreateProject : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 255),
+                        Description = c.String(nullable: false, maxLength: 255),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.Courses",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Description = c.String(),
+                        Name = c.String(nullable: false, maxLength: 255),
+                        Description = c.String(nullable: false, maxLength: 255),
+                        CategoryId = c.Int(),
+                        IsAvailable = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Categories", t => t.CategoryId)
+                .Index(t => t.CategoryId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -41,10 +55,31 @@ namespace FPT_Trainning.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Trainees",
+                c => new
+                    {
+                        TraineeId = c.String(nullable: false, maxLength: 128),
+                        ProgramLanguage = c.String(),
+                        Age = c.Int(),
+                        DOB = c.DateTime(),
+                        Experience = c.Int(),
+                        Education = c.String(),
+                        Location = c.String(),
+                        ToeicScore = c.Int(),
+                        CourseId = c.Int(),
+                    })
+                .PrimaryKey(t => t.TraineeId)
+                .ForeignKey("dbo.AspNetUsers", t => t.TraineeId)
+                .ForeignKey("dbo.Courses", t => t.CourseId)
+                .Index(t => t.TraineeId)
+                .Index(t => t.CourseId);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        FullName = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -85,26 +120,56 @@ namespace FPT_Trainning.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.Trainers",
+                c => new
+                    {
+                        TrainerId = c.String(nullable: false, maxLength: 128),
+                        Education = c.String(),
+                        Phone = c.String(),
+                        WorkingPlace = c.String(),
+                        Type = c.Int(),
+                        CourseId = c.Int(),
+                    })
+                .PrimaryKey(t => t.TrainerId)
+                .ForeignKey("dbo.AspNetUsers", t => t.TrainerId)
+                .ForeignKey("dbo.Courses", t => t.CourseId)
+                .Index(t => t.TrainerId)
+                .Index(t => t.CourseId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Trainees", "CourseId", "dbo.Courses");
+            DropForeignKey("dbo.Trainees", "TraineeId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Trainers", "CourseId", "dbo.Courses");
+            DropForeignKey("dbo.Trainers", "TrainerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Courses", "CategoryId", "dbo.Categories");
+            DropIndex("dbo.Trainers", new[] { "CourseId" });
+            DropIndex("dbo.Trainers", new[] { "TrainerId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Trainees", new[] { "CourseId" });
+            DropIndex("dbo.Trainees", new[] { "TraineeId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Courses", new[] { "CategoryId" });
+            DropTable("dbo.Trainers");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Trainees");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Courses");
+            DropTable("dbo.Categories");
         }
     }
 }

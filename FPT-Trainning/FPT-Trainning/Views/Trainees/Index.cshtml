@@ -1,0 +1,62 @@
+﻿@model IEnumerable<FPT_Trainning.Models.Trainee>
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";}
+
+<h2 style="padding-left: 15px">Manage Trainee</h2>
+
+@using (Html.BeginForm("Index", "Trainees", "POST"))
+{
+    <div class="form-group" style="margin-left: 15px">
+        <label for="fname" style="padding-left: 5px; font-weight:bold">Search by Task Name:</label><br>
+        @Html.TextBox("searchInput", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group"  style="padding-left: 7px">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+}
+<table class="table table-bordered" style="margin-left:15px; text-align: center; ">
+    <thead style="background-color: burlywood; color: black;font-weight: bold">
+        <tr>
+            <th>E-mail</th>
+            <th>Full name</th>
+            <th>Programming language</th>
+            <th>Age</th>
+            <th>Date of birth</th>
+            <th>Experience level</th>
+            <th>Education level</th>
+            <th>Address</th>
+            <th>TOEIC rating</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ApplicationUser.Email</td>
+                <td>@item.ApplicationUser.FullName</td>
+                <td>@item.ProgramLanguage</td>
+                <td>@item.Age</td>
+                <td>@item.DOB</td>
+                <td>@item.Experience</td>
+                <td>@item.Education</td>
+                <td>@item.Location</td>
+                <td>@item.ToeicScore</td>
+                <td>
+                    @Html.ActionLink("Details profile", "Details", "Trainees",
+                                                          new { id = item.TraineeId },
+                                                          new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit profile", "Update", "Trainees",
+                                                          new { id = item.TraineeId },
+                                                          new { @class = "btn btn-dark" })
+                    @Html.ActionLink("Delete profile", "Delete", "Trainees",
+                                                          new { id = item.TraineeId },
+                                                          new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Reset password", "ResetPassword", "Account",
+                                                          new { id = item.ApplicationUser.Id },
+                                                          new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

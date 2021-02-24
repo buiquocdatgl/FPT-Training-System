@@ -1,0 +1,27 @@
+﻿@model FPT_Trainning.Models.Category
+@{ ViewBag.Title = "Details";
+
+    }
+﻿
+<h2 style="margin: 0px 0px 20px 20px">Category Details</h2>
+
+@Html.ActionLink("Back to My Categories", "Index", "Categories",
+    null,
+    new { @class = "btn btn-primary", style = "margin-left: 20px" })
+
+<table class="table table-bordered" style="margin-left: 20px">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>Category #</th>
+            <th>Category Name</th>
+            <th>Category Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:black; text-align:center">
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.Description</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,60 @@
+﻿ @model IEnumerable<FPT_Trainning.Models.Course>
+@{ ViewBag.Title = "Index"; }
+
+<h2 style="margin-left: 20px; padding-bottom: 20px">Manage Course</h2>
+
+@Html.ActionLink("Create new Course", "Create", "Courses",
+    null,
+    new { @class = "btn btn-primary", style = "margin-left: 20px" })
+
+@using (Html.BeginForm("Index", "Courses", "POST"))
+{
+    <div class="form-group" style="margin-left: 20px">
+        <label for="fname">Search by Course Name:</label><br>
+        @Html.TextBox("searchInput", null, new { @class = "form-control" })
+    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="margin-left: 20px">Search</button>
+                    </div>
+}
+<table class="table table-bordered" , style="margin-left: 20px">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>Course #</th>
+            <th>Course Name</th>
+            <th>Course Description</th>
+            <th>Category Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr style="color:black; text-align:center">
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Category.Name</td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Courses",
+                                                                new { id = item.Id },
+                                                                new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Update this Course", "Update", "Courses",
+                                                                new { id = item.Id },
+                                                                new { @class = "btn btn-dark" })
+                        @Html.ActionLink("Delete this Course", "Delete", "Courses",
+                                                                new { id = item.Id },
+                                                                new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+@Html.ActionLink("Go to Category Page", "Index", "Categories",
+    null,
+    new { @class = "btn btn-primary", style = "margin-left: 20px" })
