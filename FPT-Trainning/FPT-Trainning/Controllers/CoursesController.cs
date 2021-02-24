@@ -10,8 +10,8 @@ using System.Data.Entity;
 
 namespace FPT_Trainning.Controllers
 {
-
-	public class CoursesController : Controller
+    [Authorize(Roles = "STAFF")]
+    public class CoursesController : Controller
 	{
         private ApplicationDbContext _context;
         public CoursesController()
@@ -19,11 +19,19 @@ namespace FPT_Trainning.Controllers
             _context = new ApplicationDbContext();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchInput)
         {
             var courses = _context.Courses
                 .Include(c => c.Category)
                 .ToList();
+
+            if (!searchInput.IsNullOrWhiteSpace())
+            {
+                courses = _context.Courses
+                .Where(m => m.Name.Contains(searchInput) || m.Description.Contains(searchInput) || m.Category.Name.Contains(searchInput))
+                .Include(m => m.Category)
+                .ToList();
+            }
             return View(courses);
         }
 
@@ -40,12 +48,19 @@ namespace FPT_Trainning.Controllers
         [HttpPost]
         public ActionResult Create(Course course)
         {
+            
+            if (course.CategoryId == null)
+            {
+                TempData["MessageError"] = "The Course can not create without Category, Please Create Category";
+                return RedirectToAction("Create");
+            }
             if (course.Name == "")
             {
                 TempData["MessageError"] = "Please input the Course Name";
                 return RedirectToAction("Create");
             }
-            var checkCourse = _context.Courses.Where(t => t.Name == course.Name);
+            var checkCourse = _context.Courses.Where(c => c.Name == course.Name);
+
             if (checkCourse.Count() > 0)
             {
                 TempData["MessageError"] = "The Course Name already Existed";
@@ -62,6 +77,7 @@ namespace FPT_Trainning.Controllers
                 {
                     Name = course.Name,
                     Description = course.Description,
+                    IsAvailable = course.IsAvailable,
                     CategoryId = course.CategoryId
 
                 };
@@ -74,7 +90,7 @@ namespace FPT_Trainning.Controllers
 
         public ActionResult Details(int id)
         {
-            var coursesInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
+            var coursesInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
             if (coursesInDb == null)
             {
                 TempData["MessageError"] = "The Course Name doesn't Exist";
@@ -87,7 +103,7 @@ namespace FPT_Trainning.Controllers
         [HttpGet]
         public ActionResult Update(int id)
         {
-            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == id);
+            var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
             if (courseInDb == null)
             {
                 TempData["MessageError"] = "The Course Name doesn't Exist";
@@ -109,34 +125,33 @@ namespace FPT_Trainning.Controllers
                 TempData["MessageError"] = "Please input the Course Name";
                 return RedirectToAction("Update");
             }
-            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == course.Id);
+            var checkCourse = _context.Courses.Where(c => c.Name == course.Name);
+            var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == course.Id);
             if (courseInDb == null)
             {
                 TempData["MessageError"] = "The Course doesn't Exist";
                 return RedirectToAction("Index");
             }
-            var checkCourse = _context.Courses.Where(t => t.Name == course.Name);
-            if (checkCourse.Count() > 0)
+            else if (checkCourse.Any())
             {
-                TempData["MessageError"] = "The Course Name already Existed";
-                return RedirectToAction("Update");
-            }
-            else
-            {
-                if (!ModelState.IsValid)
+                if (courseInDb.Name != course.Name)
                 {
-                    TempData["MessageError"] = "Can Not Update Course";
+                    TempData["MessageError"] = "The Course Name already Existed";
                     return RedirectToAction("Update");
                 }
-                courseInDb.Name = course.Name;
-                courseInDb.Description = course.Description;
-                courseInDb.CategoryId = course.CategoryId;
-                _context.SaveChanges();
             }
+            if (!ModelState.IsValid)
+            {
+                TempData["MessageError"] = "Can Not Update Course";
+                return RedirectToAction("Update");
+            }
+            courseInDb.Name = course.Name;
+            courseInDb.Description = course.Description;
+            courseInDb.CategoryId = course.CategoryId;
+            _context.SaveChanges();
             TempData["MessageSuccess"] = "Update Course Successfully";
             return RedirectToAction("Index");
         }
-
         public ActionResult Delete(int id)
         {
             var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);

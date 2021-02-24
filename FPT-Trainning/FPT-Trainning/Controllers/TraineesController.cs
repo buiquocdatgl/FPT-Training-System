@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace FPT_Trainning.Controllers
 {
+    [Authorize(Roles = "STAFF")]
     public class TraineesController : Controller
     {
         private ApplicationDbContext _context;
@@ -24,7 +25,11 @@ namespace FPT_Trainning.Controllers
             if (!searchInput.IsNullOrWhiteSpace())
             {
                 trainees = _context.Trainees
-                    .Where(t => t.ApplicationUser.FullName.Contains(searchInput))
+                    .Where(t => t.ApplicationUser.Email.Contains(searchInput) ||
+                    t.ApplicationUser.FullName.Contains(searchInput) ||
+                    t.ProgramLanguage.Contains(searchInput) || 
+                    t.Education.Contains(searchInput) ||
+                    t.Location.Contains(searchInput))
                     .ToList();
             }
             return View(trainees);
@@ -33,6 +38,11 @@ namespace FPT_Trainning.Controllers
         public ActionResult Details(string id)
         {
             var traineeInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == id);
+            if (traineeInDb == null)
+            {
+                TempData["MessageError"] = "The Trainee Name doesn't Exist";
+                return RedirectToAction("Index");
+            }
             return View(traineeInDb);
         }
 
@@ -42,7 +52,8 @@ namespace FPT_Trainning.Controllers
             var traineeInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == id);
             if (traineeInDb == null)
             {
-                return HttpNotFound();
+                TempData["MessageError"] = "The Trainee Name doesn't Exist";
+                return RedirectToAction("Index");
             }
             return View(traineeInDb);
         }
@@ -54,30 +65,45 @@ namespace FPT_Trainning.Controllers
             {
                 return View();
             }
-            var traineeInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == trainee.TraineeId);
+            var traineeInDb =_context.Trainees.SingleOrDefault(t => t.TraineeId == trainee.TraineeId);
+            
+            if (traineeInDb == null)
             {
-                traineeInDb.ApplicationUser.FullName = trainee.ApplicationUser.FullName;
-                traineeInDb.ProgramLanguage = trainee.ProgramLanguage;
-                traineeInDb.Age = trainee.Age;
-                traineeInDb.DOB = trainee.DOB;
-                traineeInDb.Experience = trainee.Experience;
-                traineeInDb.Education = trainee.Education;
-                traineeInDb.Location = trainee.Location;
-                traineeInDb.ToeicScore = trainee.ToeicScore;
+                TempData["MessageError"] = "Can not Find Trainee to Update";
+                return RedirectToAction("Update");
             }
+            traineeInDb.ApplicationUser.FullName = trainee.ApplicationUser.FullName;
+            traineeInDb.ProgramLanguage = trainee.ProgramLanguage;
+            traineeInDb.Age = trainee.Age;
+            traineeInDb.DOB = trainee.DOB;
+            traineeInDb.Experience = trainee.Experience;
+            traineeInDb.Education = trainee.Education;
+            traineeInDb.Location = trainee.Location;
+        
             _context.SaveChanges();
+            TempData["MessageSuccess"] = "Update Trainee Successfully";
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(string id)
         {
-            var traineeInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == id);
-
-            if (traineeInDb == null) return HttpNotFound();
-
-            _context.Trainees.Remove(traineeInDb);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+                var userInDb = _context.Users.SingleOrDefault(u => u.Id == id);
+                if (userInDb == null)
+                {
+                    TempData["MessageError"] = "The User doesn't Exist";
+                    return RedirectToAction("Index");
+                }
+                var traineeInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == id);
+                if (traineeInDb == null)
+                {
+                    TempData["MessageError"] = "The Trainee doesn't Exist";
+                    return RedirectToAction("Index");
+                }
+                _context.Trainees.Remove(traineeInDb);
+                _context.Users.Remove(userInDb);
+                _context.SaveChanges();
+                TempData["MessageSuccess"] = "Delete Trainee Successfully";
+                return RedirectToAction("Index");
         }
     }
 }

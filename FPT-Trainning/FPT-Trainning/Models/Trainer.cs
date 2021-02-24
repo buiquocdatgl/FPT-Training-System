@@ -10,19 +10,22 @@ namespace FPT_Trainning.Models
 {
     public class Trainer
     {
+        
         [ForeignKey("ApplicationUser")]
         public string TrainerId { get; set; }
-        public string UserName { get; set; }
+        
         [DisplayName("Education level")]
         public string Education { get; set; }
         [DisplayName("Phone number")]
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         [DisplayName("Working location")]
         public string WorkingPlace { get; set; }
-        public TrainerType Type { get; set; }
+        public TrainerType? Type { get; set; }
         public int? CourseId { get; set; }
         public Course course { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+       
     }
     public enum TrainerType
     {
@@ -30,4 +33,5 @@ namespace FPT_Trainning.Models
         Internal = 1,
         External = 2
     }
+
 }

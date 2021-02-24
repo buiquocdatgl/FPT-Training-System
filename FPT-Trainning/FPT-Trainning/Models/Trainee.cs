@@ -11,24 +11,27 @@ namespace FPT_Trainning.Models
     {
         [ForeignKey("ApplicationUser")]
         public string TraineeId { get; set; }
-        public string UserName { get; set; }
+        
         [DisplayName("Programming language")]
         public string ProgramLanguage { get; set; }
         [DisplayName("Age")]
-        public int Age { get; set; }
+        public int? Age { get; set; }
         [DisplayName("Date of birth")]
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         [DisplayName("Experience level")]
-        public int Experience { get; set; }
+        public int? Experience { get; set; }
         [DisplayName("Education level")]
         public string Education { get; set; }
         [DisplayName("Address")]
         public string Location { get; set; }
         [DisplayName("TOEIC rating")]
-        public int ToeicScore { get; set; }
+        public int? ToeicScore { get; set; }
         public int? CourseId { get; set; }
         public Course course { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
-
+        public Trainee()
+        {
+            this.DOB = DateTime.Now;
+        }
     }
 }

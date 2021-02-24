@@ -3,27 +3,30 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create a Course</h2>
+<h2 style="margin: 0px 0px 20px 20px">Create a Course</h2>
 
 @using (Html.BeginForm("Create", "Courses", "POST"))
 {
-    <div class="form-group">
+    <div class="form-group" style="margin-left: 20px; font-weight:bold">
         @Html.LabelFor(model => model.Course.Name)
         @Html.TextBoxFor(model => model.Course.Name, new { @class = "form-control", style = "width:350px" })
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin-left: 20px; font-weight:bold">
         @Html.LabelFor(model => model.Course.Description)
         @Html.TextAreaFor(model => model.Course.Description, new { @class = "form-control", style = "width:350px" })
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin-left: 20px; font-weight:bold">
+        @Html.LabelFor(model => model.Course.IsAvailable)
+        @Html.CheckBoxFor(model => model.Course.IsAvailable, new { @class = "form-control", style = "width:350px" })
+    </div>
+    <div class="form-group" style="margin-left: 20px; font-weight:bold">
         @Html.LabelFor(model => model.Course.Category.Name)
         @Html.DropDownListFor(model => model.Course.CategoryId,
          new SelectList(Model.Categories, "Id", "Name"),
          new { @class = "form-control", style = "width:350px" })
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin: 60px 0px 0px 12px">
         <button type="submit" class="btn btn-primary">Create new Task</button>
     </div>
 }
-<h2>Create</h2>
 

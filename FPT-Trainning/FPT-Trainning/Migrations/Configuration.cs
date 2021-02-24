@@ -21,8 +21,8 @@ namespace FPT_Trainning.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-           /* CreateUser(context, "admin@gmail.com", "admin123");
-            AddUserToRole(context, "admin@gmail.com", "ADMIN");*/
+            CreateUser(context, "admin@gmail.com", "admin123");
+            /*AddUserToRole(context, "admin@gmail.com", "ADMIN");*/
         }
         private void CreateUser(ApplicationDbContext context,
         string email, string password)

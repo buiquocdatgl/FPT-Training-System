@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace FPT_Trainning.Controllers
 {
+    [Authorize]
     public class StaffsController : Controller
     {
         private ApplicationDbContext _context;

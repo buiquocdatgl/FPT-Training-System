@@ -1,17 +1,16 @@
 ﻿@model FPT_Trainning.Models.Course
-@{ ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";}
+@{
+    ViewBag.Title = "ViewCourse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<h2 style="margin: 0px 0px 20px 20px">@Model.Name</h2>
-
-@Html.ActionLink("Back to My Courses", "Index", "Courses",
+<h2 style="margin-left: 20px">View Course</h2>
+@Html.ActionLink("Back To Profile", "Profile", "Account",
     null,
     new { @class = "btn btn-primary", style = "margin-left: 20px" })
-
-<table class="table table-bordered", style="margin-left: 20px">
+<table class="table table-bordered" , style="margin-left: 20px">
     <thead>
         <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
-            <th>Course #</th>
             <th>Course Name</th>
             <th>Course Description</th>
             <th>Category Name</th>
@@ -19,13 +18,8 @@
     </thead>
     <tbody>
         <tr style="color:black; text-align:center">
-            <td>@Model.Id</td>
             <td>@Model.Name</td>
             <td>@Model.Description</td>
             <td>@Model.Category.Name</td>
-        </tr>
     </tbody>
 </table>
-@Html.ActionLink("Go to AssignCourse", "Index", "Assign",
-    new { id = Model.Id }, new { @class = "btn btn-dark", style = "margin-left:20px" })
-
