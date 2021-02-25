@@ -59,11 +59,44 @@
                                         <div class="form-group"><label for="full name"><strong>Full Name</strong></label><input class="form-control" type="text" placeholder="John" name="full name" value="@Model.user.FullName" disabled></div>
                                     </div>
                                 </div>
-                                @Html.ActionLink("Update", "UpdateProfile", "Account", null,
+                                @Html.ActionLink("Update", "UpdateProfile", "TrainerRoles", null,
                  new { @class = "btn btn-primary", style = "margin-left: 20px" })
                             </form>
                         </div>
                     </div>
+                    @if (Model.trainer != null)
+                    {
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 font-weight-bold">Trainer Profile</p>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="username"><strong>Education</strong></label><input class="form-control" type="text" placeholder="user.name" name="username" value="@Model.trainer.Education" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="email"><strong>Phone</strong></label><input class="form-control" type="email" placeholder="user@example.com" name="email" value="@Model.trainer.Phone" disabled></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="first_name"><strong>Working Place</strong></label><input class="form-control" type="text" placeholder="John" name="first_name" value="@Model.trainer.WorkingPlace" disabled></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="last_name"><strong>Type</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name" value="@Model.trainer.Type" disabled></div>
+                                        </div>
+                                    </div>
+                                    @Html.ActionLink("Update Profile", "UpdateTrainerProfile", "TrainerRoles", null,
+                                        new { @class = "btn btn-primary", style = "margin-left: 20px" })
+                                    @Html.ActionLink("Change Password", "ResetPassword", "Account", null,
+                                        new { @class = "btn btn-dark", style = "margin-left: 20px" })
+                                </form>
+                            </div>
+                        </div>
+                    }
+
                 </div>
             </div>
         </div>

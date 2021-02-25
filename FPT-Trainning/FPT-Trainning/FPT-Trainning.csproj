@@ -181,7 +181,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
+    <Compile Include="Controllers\TraineeRolesController.cs" />
     <Compile Include="Controllers\TraineesController.cs" />
+    <Compile Include="Controllers\TrainerRolesController.cs" />
     <Compile Include="Controllers\TrainersController.cs" />
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -468,9 +470,13 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\UpdateProfile.cshtml" />
-    <Content Include="Views\Account\UpdateTrainerProfile.cshtml" />
-    <Content Include="Views\Account\ViewCourse.cshtml" />
-    <Content Include="Views\Account\UpdateTraineeProfile.cshtml" />
+    <Content Include="Views\TrainerRoles\Profile.cshtml" />
+    <Content Include="Views\TrainerRoles\UpdateProfile.cshtml" />
+    <Content Include="Views\TrainerRoles\UpdateTrainerProfile.cshtml" />
+    <Content Include="Views\TrainerRoles\ViewCourse.cshtml" />
+    <Content Include="Views\TraineeRoles\Profile.cshtml" />
+    <Content Include="Views\TraineeRoles\UpdateProfile.cshtml" />
+    <Content Include="Views\TraineeRoles\ViewCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

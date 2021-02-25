@@ -1,0 +1,25 @@
+﻿@model FPT_Trainning.Models.Course
+@{
+    ViewBag.Title = "ViewCourse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="margin-left: 20px">View Course</h2>
+@Html.ActionLink("Back To Profile", "Profile", "TrainerRoles",
+    null,
+    new { @class = "btn btn-primary", style = "margin-left: 20px" })
+<table class="table table-bordered" , style="margin-left: 20px">
+    <thead>
+        <tr style="background-color:burlywood ;color:black; text-align:center; font-weight:bold">
+            <th>Course Name</th>
+            <th>Course Description</th>
+            <th>Category Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:black; text-align:center">
+            <td>@Model.Name</td>
+            <td>@Model.Description</td>
+            <td>@Model.Category.Name</td>
+    </tbody>
+</table>

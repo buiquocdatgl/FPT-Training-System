@@ -34,11 +34,11 @@
                         }
                         @if (User.IsInRole("TRAINER"))
                         {
-                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("View Assigned Course", "ViewCourse", "Account", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("View Assigned Course", "ViewCourse", "TrainerRoles", null, new { Style = "color:white" })</li>
                         }
                         @if (User.IsInRole("TRAINEE"))
                         {
-                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("View Assigned Course", "ViewCourse", "Account", null, new { Style = "color:white" })</li>
+                            <li class="nav-item" style="padding:25px 100px 15px 0px; display:flex; align-items: center"><i class="fas fa-user" style="margin-right:8px"></i>@Html.ActionLink("View Assigned Course", "ViewCourse", "TraineeRoles", null, new { Style = "color:white" })</li>
                         }
 
                     </ul>
@@ -53,9 +53,32 @@
                                 <div class="d-none d-sm-block topbar-divider"></div>
                                 <li class="nav-item dropdown no-arrow">
                                     <div class="nav-item dropdown no-arrow">
-                                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="/Account/Profile"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="~/assets/img/avatars/avatar1.jpeg"></a>
+                                        @if (User.IsInRole("TRAINER"))
+                                        {
+                                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="/TrainerRoles/Profile"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="~/assets/img/avatars/avatar1.jpeg"></a>
+                                        }
+                                        else if (User.IsInRole("TRAINEE"))
+                                        {
+                                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="/TraineeRoles/Profile"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="~/assets/img/avatars/avatar1.jpeg"></a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="/Account/Profile"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="~/assets/img/avatars/avatar1.jpeg"></a>
+                                        }
                                         <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-                                            <a class="dropdown-item" href="/Account/Profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            @if (User.IsInRole("TRAINER"))
+                                            {
+                                                <a class="dropdown-item" href="/TrainerRoles/Profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            }
+                                            else if (User.IsInRole("TRAINEE"))
+                                            {
+                                                <a class="dropdown-item" href="/TraineeRoles/Profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="/Account/Profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            }
+                                        
                                             <div class="dropdown-divider"></div><a class="dropdown-item" href="/Account/Logout"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                         </div>
                                     </div>
