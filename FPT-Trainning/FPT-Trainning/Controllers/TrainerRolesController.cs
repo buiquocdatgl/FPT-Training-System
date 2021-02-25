@@ -22,14 +22,14 @@ namespace FPT_Trainning.Controllers
         public ActionResult Profile()
         {
             var userId = User.Identity.GetUserId();
-            ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
+            ApplicationUser currentUser = _context.Users.SingleOrDefault(x => x.Id == userId);
             var trainerInfo = _context.Trainers.SingleOrDefault(t => t.TrainerId == currentUser.Id);
             if (trainerInfo == null)
             {
                 var userTrainer = new UserInfo()
                 {
                     user = currentUser,
-                };
+                };  
                 return View(userTrainer);
             }
             var userInfoTrainer = new UserInfo()
@@ -55,7 +55,6 @@ namespace FPT_Trainning.Controllers
         {
             var userInDb = _context.Users.SingleOrDefault(u => u.Id == user.Id);
             userInDb.FullName = user.FullName;
-            userInDb.PhoneNumber = user.PhoneNumber;
             _context.SaveChanges();
             return RedirectToAction("Profile");
         }
