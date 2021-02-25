@@ -425,12 +425,11 @@ namespace FPT_Trainning.Controllers
                 return View(resetUser1);
             }
             var currentUserId = User.Identity.GetUserId();
-            ApplicationUser webUser = _context.Users.FirstOrDefault(u => u.Id == currentUserId);
-            var user2 = _context.Users.SingleOrDefault(u => u.Id == webUser.Id);
+            ApplicationUser user2 = _context.Users.FirstOrDefault(u => u.Id == currentUserId);
             if (user2 == null) return HttpNotFound();
             var resetUser2 = new ResetPasswordViewModel()
             {
-                User = webUser
+                User = user2
             };
             return View(resetUser2);
         }
