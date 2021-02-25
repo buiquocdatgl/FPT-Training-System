@@ -108,16 +108,6 @@ namespace FPT_Trainning.Controllers
                     TempData["MessageError"] = "Can not Find Course For Change Assign";
                     return RedirectToAction("Index", "Courses");
                 }
-                else
-                {
-                    if (checkTrainer.CourseId != checkCourse.Id)
-                    {
-
-                        TempData["MessageError"] = "Can not Find Course For Change Assign";
-                        return RedirectToAction("Index");
-
-                    }
-                }
             }
 
             var changeViewmodel = new ChangeTrainerAssign()
@@ -128,8 +118,6 @@ namespace FPT_Trainning.Controllers
             return View(changeViewmodel);
 
         }
-
-
         [HttpPost]
         public ActionResult ChangeTrainerAssign(string CourseId, string TrainerId)
         {
@@ -195,6 +183,7 @@ namespace FPT_Trainning.Controllers
         public ActionResult ChangeTraineeAssign(int CourseId, string TraineeId)
         {
             var checkTrainee = _context.Trainees.SingleOrDefault(t => t.TraineeId == TraineeId);
+            var CoursesExclude = _context.Courses.Where(c => c.Id != CourseId);
             if (checkTrainee == null)
             {
                 TempData["MessageError"] = "Can not Find Trainee For Change Assign";
@@ -208,19 +197,7 @@ namespace FPT_Trainning.Controllers
                     TempData["MessageError"] = "Can not Find Course For Change Assign";
                     return RedirectToAction("Index", "Courses");
                 }
-                else
-                {
-                    if (checkTrainee.CourseId != checkCourse.Id)
-                    {
-
-                        TempData["MessageError"] = "Can not Find Course For Change Assign";
-                        return RedirectToAction("Index");
-
-                    }
-                }
             }
-            var CoursesExclude = _context.Courses.Where(c => c.Id != CourseId);
-
             var changeViewmodel = new ChangeTraineeAssign()
             {
                 Courses = CoursesExclude,
