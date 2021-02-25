@@ -90,13 +90,12 @@ namespace FPT_Trainning.Controllers
 
         public ActionResult Details(int id)
         {
-            var coursesInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
+            var coursesInDb = _context.Courses.Include(c => c.Category).SingleOrDefault(c => c.Id == id);
             if (coursesInDb == null)
             {
                 TempData["MessageError"] = "The Course Name doesn't Exist";
                 return RedirectToAction("Index");
             }
-            var courses = _context.Courses.Include(c => c.Category).ToList();
             return View(coursesInDb);
         }
 
