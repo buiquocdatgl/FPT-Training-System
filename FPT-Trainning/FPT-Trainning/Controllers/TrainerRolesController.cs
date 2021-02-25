@@ -89,20 +89,26 @@ namespace FPT_Trainning.Controllers
             var userId = User.Identity.GetUserId();
             ApplicationUser currentUser = _context.Users.SingleOrDefault(x => x.Id == userId);
 
-            var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == currentUser.Id);
-            if (trainerInDb == null)
-            {
-                TempData["MessageError"] = "You do not have Trainer Profile";
-                return RedirectToAction("Index", "Home");
+                var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == currentUser.Id);
+                if (trainerInDb == null)
+                {
+                    TempData["MessageError"] = "You do not have Trainer Profile";
+                    return RedirectToAction("Index", "Home");
 
-            }
-            var courseTrainer = _context.Courses.SingleOrDefault(c => c.Id == trainerInDb.CourseId);
-            if (courseTrainer == null)
-            {
-                TempData["MessageError"] = "You do not have Course Assign";
-                return RedirectToAction("Index", "Home");
-            }
-            var courses = _context.Courses.Include(c => c.Category).ToList();
+                }
+                var courseTrainer = _context.Courses.SingleOrDefault(c => c.Id == trainerInDb.CourseId);
+                if (courseTrainer == null)
+                {
+                    TempData["MessageError"] = "You do not have Course Assign";
+                    return RedirectToAction("Index", "Home");
+                }
+                var courses = _context.Courses.Include(c => c.Category).ToList();
+
+                var userInfoTrainer = new UserInfo()
+                {
+                    user = currentUser,
+                    trainer = trainerInDb
+                };
             return View(courseTrainer);
         }
     }

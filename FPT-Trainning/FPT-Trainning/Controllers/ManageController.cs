@@ -10,7 +10,7 @@ using FPT_Trainning.Models;
 
 namespace FPT_Trainning.Controllers
 {
-    [Authorize(Roles = "ADMIN")]
+    [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

@@ -98,6 +98,12 @@ namespace FPT_Trainning.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var courses = _context.Courses.Include(c => c.Category).ToList();
+
+            var userInfoTrainee = new UserInfo()
+            {
+                user = currentUser,
+                trainee = traineeInDb
+            };
             return View(courseTrainee);
         }
     }
