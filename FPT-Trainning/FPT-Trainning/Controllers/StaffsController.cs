@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FPT_Trainning.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ADMIN")]
     public class StaffsController : Controller
     {
         private ApplicationDbContext _context;
@@ -16,8 +16,7 @@ namespace FPT_Trainning.Controllers
         {
             _context = new ApplicationDbContext();
         }
-        // GET: Staffs
-        public ActionResult Index(string searchInput)
+         public ActionResult Index(string searchInput)
         {
             var staffs = _context.Users
                 .Where(u => u.Roles.Any(r => r.RoleId == "2"))

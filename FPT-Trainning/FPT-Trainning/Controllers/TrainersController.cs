@@ -54,7 +54,6 @@ namespace FPT_Trainning.Controllers
             };
             return View(trainerAccount);
         }
-
         public ActionResult Details(string id)
         {
             var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == id);

@@ -100,39 +100,6 @@ namespace FPT_Trainning.Controllers
         public async Task<ActionResult> Profile()
         {
             var userId = User.Identity.GetUserId();
-            if (User.IsInRole("TRAINER"))
-            {
-                ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
-                var trainerInfo = _context.Trainers.SingleOrDefault(t => t.TrainerId == currentUser.Id);
-                if (trainerInfo == null)
-                {
-                    var userTrainer = new UserInfo()
-                    {
-                        user = currentUser,
-                    };
-                    return View(userTrainer);
-                }
-                var userInfoTrainer = new UserInfo()
-                {
-                    user = currentUser,
-                    trainer = trainerInfo
-                };
-                return View(userInfoTrainer);
-
-            }
-            if (User.IsInRole("TRAINEE"))
-            {
-                ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
-                var traineeInfo = _context.Trainees.SingleOrDefault(t => t.TraineeId == currentUser.Id);
-
-                var userInfoTrainee = new UserInfo()
-                {
-                    user = currentUser,
-                    trainee = traineeInfo
-                };
-                return View(userInfoTrainee);
-            }
-            
             ApplicationUser user = _context.Users.FirstOrDefault(x => x.Id == userId);
             var userInfo = new UserInfo()
             {
@@ -140,7 +107,7 @@ namespace FPT_Trainning.Controllers
             };
             return View(userInfo);
         }
-        [HttpGet]
+       [HttpGet]
         public ActionResult UpdateProfile()
         {
             var userId = User.Identity.GetUserId();
@@ -160,6 +127,7 @@ namespace FPT_Trainning.Controllers
             _context.SaveChanges();
             return RedirectToAction("Profile");
         }
+        /*
         [Authorize(Roles = "TRAINER,STAFF")]
         [HttpGet]
         public ActionResult UpdateTrainerProfile()
@@ -226,7 +194,7 @@ namespace FPT_Trainning.Controllers
                 {
                     TempData["MessageError"] = "You do not have Trainer Profile";
                     return RedirectToAction("Index", "Home");
-                    
+
                 }
                 var courseTrainer = _context.Courses.SingleOrDefault(c => c.Id == trainerInDb.CourseId);
                 if (courseTrainer == null)
@@ -269,7 +237,7 @@ namespace FPT_Trainning.Controllers
                 return View(courseTrainee);
             }
             return HttpNotFound();
-        }
+        }*/
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
