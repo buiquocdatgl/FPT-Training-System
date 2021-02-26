@@ -63,13 +63,12 @@ namespace FPT_Trainning.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
-            var courseTrainee = _context.Courses.SingleOrDefault(c => c.Id == traineeInDb.CourseId);
+            var courseTrainee = _context.Courses.Include(c => c.Category).SingleOrDefault(c => c.Id == traineeInDb.CourseId);
             if (courseTrainee == null)
             {
                 TempData["MessageError"] = "You do not have Course Assign";
                 return RedirectToAction("Index", "Home");
             }
-            var courses = _context.Courses.Include(c => c.Category).ToList();
             return View(courseTrainee);
         }
     }

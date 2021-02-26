@@ -79,7 +79,7 @@ namespace FPT_Trainning.Controllers
             traineeInDb.Experience = trainee.Experience;
             traineeInDb.Education = trainee.Education;
             traineeInDb.Location = trainee.Location;
-        
+            traineeInDb.ToeicScore = trainee.ToeicScore;
             _context.SaveChanges();
             TempData["MessageSuccess"] = "Update Trainee Successfully";
             return RedirectToAction("Index");
