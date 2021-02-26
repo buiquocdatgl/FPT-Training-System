@@ -52,34 +52,6 @@ namespace FPT_Trainning.Controllers
             _context.SaveChanges();
             return RedirectToAction("Profile");
         }
-       
-        public ActionResult UpdateTraineeProfile()
-        {
-            var userId = User.Identity.GetUserId();
-            ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
-            var traineeInfo = _context.Trainees.SingleOrDefault(t => t.TraineeId == currentUser.Id);
-
-            var userInfoTrainee = new UserInfo()
-            {
-                user = currentUser,
-                trainee = traineeInfo
-            };
-            return View(userInfoTrainee);
-        }
-        [HttpPost]
-        public ActionResult UpdateTraineeProfile(Trainee trainee)
-        {
-            var traineeInfoInDb = _context.Trainees.SingleOrDefault(t => t.TraineeId == trainee.TraineeId);
-            traineeInfoInDb.ProgramLanguage = trainee.ProgramLanguage;
-            traineeInfoInDb.Age = trainee.Age;
-            traineeInfoInDb.DOB = trainee.DOB;
-            traineeInfoInDb.Experience = trainee.Experience;
-            traineeInfoInDb.Education = trainee.Education;
-            traineeInfoInDb.ToeicScore = trainee.ToeicScore;
-            _context.SaveChanges();
-            return RedirectToAction("Profile");
-        }
-
         public ActionResult ViewCourse()
         {
             var userId = User.Identity.GetUserId();
