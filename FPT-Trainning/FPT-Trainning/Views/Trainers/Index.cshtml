@@ -85,9 +85,6 @@ else
                             @Html.ActionLink("Delete profile", "Delete", "Trainers",
                                                                     new { id = item.TrainerId },
                                                                     new { @class = "btn btn-danger" })
-                            @Html.ActionLink("Reset password", "ResetPassword", "Account",
-                                                                    new { id = item.ApplicationUser.Id },
-                                                                    new { @class = "btn btn-warning" })
                         </td>
                     </tr>
                 }
